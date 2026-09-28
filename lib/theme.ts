@@ -11,9 +11,9 @@ export const THEME_KEY = "ninebark.theme";
 /**
  * Runs before first paint to apply a saved theme choice.
  *
- * Without this, a visitor who picked dark gets a white flash on every page load
- * — the server has no way to know their choice, because the choice only exists
- * in their browser. Kept to one line and wrapped in try/catch because
+ * Without this, a visitor who picked dark gets a white flash on every page load.
+ * The server has no way to know their choice, because the choice only exists in
+ * their browser. Kept to one line and wrapped in try/catch because
  * localStorage throws in some privacy modes.
  */
 export const THEME_SCRIPT = `try{var t=localStorage.getItem(${JSON.stringify(

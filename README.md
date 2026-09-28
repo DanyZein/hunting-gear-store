@@ -1,218 +1,180 @@
 # Ninebark Field Supply
 
-A hunting apparel and lighting storefront. Next.js 16 (App Router), TypeScript,
+Hunting apparel and lighting storefront. Next.js 16 (App Router), TypeScript,
 Tailwind v4.
 
-**There is no database, no CMS, no checkout and no accounts.** Content lives in
-JSON files under `/content`, and every read goes through one module. That is the
-whole design, and it exists so adding Payload later is a data-layer swap instead
-of a rewrite.
+There is no database, no CMS, no checkout and no accounts. Content lives in JSON
+files under `/content`, and every read goes through one module so a CMS can be
+added later without touching the pages.
+
+## Commands
 
 ```bash
-npm install
-npm run dev        # http://localhost:3000
-npm run build      # prerenders every route statically
-npm run typecheck
+pnpm install
+pnpm dev        # http://localhost:3000
+pnpm build      # prerenders every route statically
+pnpm typecheck
 ```
 
----
+Use pnpm, not npm. Running npm here creates a second lockfile and a duplicated
+`node_modules`.
 
-## The one rule
+The pnpm store sits on the same volume as this project:
 
-**Pages and components never import from `/content`. They only call
-`lib/content.ts`.**
+    <pnpm store path>
+
+Same volume means pnpm hard-links files instead of copying them. A store on a
+different drive falls back to copying and saves nothing.
+
+| | npm | pnpm |
+| --- | --- | --- |
+| Unique bytes in `node_modules` | 373 MB | 0.1 MB |
+| Hard-linked from the store | - | 352 MB across 10,872 files |
+| Reinstall from warm cache | ~1 min | 1.3 s |
+
+`du -sh node_modules` still reports about 375 MB under pnpm. That number is
+misleading, because `du` cannot see that the inodes are shared with the store
+outside the tree. The real cost is the 60 files unique to this project.
+
+## The content seam
+
+Pages and components never import from `/content`. They call `lib/content.ts`
+and nothing else.
 
 ```
-app/**  ──▶  lib/content.ts  ──▶  lib/sources/file.ts  ──▶  /content/*.json
-                  │
-                  └──▶  lib/sources/payload.ts   (the future)
+app/**  ->  lib/content.ts  ->  lib/sources/file.ts  ->  /content/*.json
+                  |
+                  +->  lib/sources/payload.ts   (later)
 ```
 
-Today only three route files import it:
+Only three files import it today:
 
 - `app/layout.tsx`
 - `app/page.tsx`
 - `app/products/[slug]/page.tsx`
 
-Break the rule — reach into `products.json` from a component — and every file
-that did it has to be edited when the CMS lands. That is the rewrite you are
-trying to avoid. If you catch yourself typing `import ... from "@/content/..."`,
-add a function to `lib/content.ts` instead.
+If a component reaches into `products.json` on its own, that component has to be
+edited again when the CMS lands. Add a function to `lib/content.ts` instead.
 
-You can check the rule still holds at any time:
+Check that the rule still holds:
 
 ```bash
 grep -rn "products.json\|settings.json\|pages.json" app components   # should be empty
 ```
 
----
+## Adding a CMS later
 
-## Adding the database later
+1. Write `lib/sources/payload.ts` implementing `ContentSource` from
+   `lib/types.ts`. Six functions:
 
-When the catalog outgrows files, this is the whole migration:
+   ```
+   getSettings  getTaxonomy  getProducts  getProduct  getReports  getHomePage
+   ```
 
-**1. Write the second source.** Create `lib/sources/payload.ts` implementing the
-`ContentSource` interface from `lib/types.ts`. That is six functions:
+   `getProductMap()` and `getLayeredProducts()` derive from `getProducts()`, so
+   a new source does not implement them.
 
-```ts
-getSettings()   getTaxonomy()   getProducts()
-getProduct()    getReports()    getHomePage()
-```
+2. Flip one line in `lib/content.ts`:
 
-Two of them are free, because `lib/content.ts` derives `getProductMap()` and
-`getLayeredProducts()` from `getProducts()` rather than calling the source.
+   ```ts
+   // const source: ContentSource = fileSource;
+   import { payloadSource } from "./sources/payload";
+   const source: ContentSource = payloadSource;
+   ```
 
-**2. Flip one line** in `lib/content.ts`:
+3. Fill in `.env.local` from `.env.example`.
 
-```ts
-// const source: ContentSource = fileSource;
-import { payloadSource } from "./sources/payload";
-const source: ContentSource = payloadSource;
-```
+Nothing in `app/` or `components/` changes. Keep `fileSource` in the repo. It
+costs nothing, and it lets `next build` run on a machine with no database.
 
-**3. Fill in `.env.local`** from `.env.example`.
+### Neon setup notes
 
-Nothing in `app/` or `components/` changes. `fileSource` stays in the repo —
-it costs nothing and lets `next build` run on a machine with no database.
-
-### Setup notes worth keeping
-
-These come from the Neon/Payload research and are the difference between a free
-tier and an overage:
-
-- **Use the pooled connection string** and keep `sslmode=require`. The host has
+- Use the pooled connection string and keep `sslmode=require`. The host has
   `-pooler` in it.
-- **Pin `pool.max` low (around 3).** Serverless instances multiply; without a
-  cap they exhaust Postgres connections on a busy deploy.
-- **Watch Payload's job queue.** It can wake Neon on a schedule and burn
-  compute hours on a site with no visitors. If you see CU-hours climb with flat
-  traffic, constrain the queue's auto-run or drive it from an external cron.
-  Compute sleeps after 5 minutes idle, so an idle site should cost zero.
-- **Media goes to Vercel Blob, not Postgres.** Neon's 0.5GB is text and metadata
-  only, which is kilobytes per product. It will not be the thing that fills up.
-- **Hostinger is the domain, not the database.** Payload does not speak MySQL,
-  and shared hosting cannot run the persistent Node process Payload needs.
+- Pin `pool.max` around 3. Serverless instances multiply and will exhaust
+  Postgres connections without a cap.
+- Watch Payload's job queue. It can wake Neon on a schedule and burn compute
+  hours on a site with no traffic. If CU-hours climb while traffic stays flat,
+  constrain the auto-run or drive it from an external cron. Compute sleeps after
+  5 minutes idle, so an idle site should cost nothing.
+- Media goes to Vercel Blob, not Postgres. Neon's 0.5 GB holds text and
+  metadata, which is kilobytes per product.
+- Hostinger is the domain only. Payload does not speak MySQL, and shared hosting
+  cannot run the persistent Node process it needs.
 
-### The media path
+### Adding photos
 
-`Product.image` already exists and `ProductCard` / the product page already
-render it with `ProductArt` as the fallback. When photos land:
+`Product.image` exists, and both the card and the product page render it, falling
+back to the SVG illustration. To switch over:
 
-1. Add the Blob hostname to `next.config.ts` (`images.remotePatterns`).
-2. Set `image` on the product in the CMS.
-3. Swap the two `<img>` tags for `next/image` — each is marked with a comment.
+1. Add the Blob hostname to `next.config.ts` under `images.remotePatterns`.
+2. Set `image` on the product.
+3. Swap the two `<img>` tags for `next/image`. Each is marked with a comment.
 
-Products without a photo keep their illustration, so the migration can happen
-one product at a time.
+Products without a photo keep their illustration, so this can happen one product
+at a time.
 
----
+## Content files
 
-## Where the content lives
-
-| File                       | Holds                                                       |
-| -------------------------- | ----------------------------------------------------------- |
-| `content/settings.json`    | Brand, contact, season opener, nav, announcements, trust strip, footer |
-| `content/products.json`    | The catalog, keyed by `id` (which is also the URL slug)      |
-| `content/taxonomy.json`    | Grounds, category groups, layering rows                      |
-| `content/pages.json`       | Home page copy, section by section                           |
-| `content/reports.json`     | Field reports                                                |
+| File | Holds |
+| --- | --- |
+| `content/settings.json` | Brand, contact, season opener, nav, announcements, trust strip, footer |
+| `content/products.json` | The catalog, keyed by `id`, which is also the URL slug |
+| `content/taxonomy.json` | Grounds, category groups, layering rows |
+| `content/pages.json` | Home page copy |
+| `content/reports.json` | Field reports |
 
 ### Adding a product
 
-Append to the `products` array in `content/products.json`. The types in
-`lib/types.ts` are the contract; a missing field fails `npm run typecheck`.
+Append to the `products` array in `content/products.json`. The types are in
+`lib/types.ts`, and a missing field fails `pnpm typecheck`.
 
-Two things are enforced rather than optional:
+Two things are required:
 
-- **`specs` is exactly three entries.** The card's spec strip is a three-column
-  grid, and a row of cards only reads as a comparison table if every card has
-  the same three cells in the same order.
-- **`art` must name a key in `lib/art.tsx`.** Add a drawing there or set `image`
+- `specs` must have exactly three entries. The spec strip on a card is a three
+  column grid, and a row of cards only reads as a comparison table when every
+  card carries the same three cells.
+- `art` must name a key in `lib/art.tsx`, or the product needs an `image`
   instead.
 
-`ground` ids and `group` ids must exist in `taxonomy.json`, and `layer` must be
-one of `base` / `mid` / `outer` for a piece to appear in the kit builder.
+`ground` and `group` ids have to exist in `taxonomy.json`. `layer` must be
+`base`, `mid` or `outer` for a piece to show up in the kit builder.
 
-### Prose-heavy pages later
-
-Everything is JSON today, which suits structured content. If you start writing
-long-form field notes or care guides, MDX under `/content` is the natural next
-step — add a `getPage(slug)` to the `ContentSource` interface and load it
-through the same seam. The rule does not change.
-
----
-
-## Project layout
+## Layout
 
 ```
 app/
-  layout.tsx              fonts, providers, header/footer/drawers
-  page.tsx                the home page — composes sections, no markup of its own
-  products/[slug]/page.tsx  product detail, statically generated per product
-  not-found.tsx
-  globals.css             design tokens + the few components Tailwind cannot express
+  layout.tsx                fonts, providers, header/footer/drawers
+  page.tsx                  composes sections, holds no markup itself
+  products/[slug]/page.tsx  product detail, statically generated
 components/
-  store/                  client state: cart, drawers, toast, catalog filters
-  ui/                     Button, Chip, Eyebrow, Scrim, icons
-  <section>.tsx           one file per page section
-content/                  all copy and catalog data
+  store/                    client state: cart, drawers, toast, filters
+  ui/                       Button, Chip, Eyebrow, Scrim, icons
+  <section>.tsx             one file per page section
+content/                    all copy and catalog data
 lib/
-  content.ts              THE SEAM
-  sources/file.ts         reads /content — the only fs access in the app
-  types.ts                the contract every source must satisfy
-  art.tsx                 placeholder product illustrations
-  format.ts, cn.ts
-design/concept.html       the original single-file design concept, for reference
+  content.ts                the seam
+  sources/file.ts           reads /content, the only fs access in the app
+  types.ts                  the contract every source satisfies
+  art.tsx                   placeholder product illustrations
+design/concept.html         original single-file concept, for reference
 ```
 
-### Server vs client
+The page tree renders on the server. Client components are the interactive
+islands: the cart, drawers, filters, kit builder and beam dial.
 
-The page tree is server-rendered. Client components are the interactive islands:
-the cart, drawers, filters, the kit builder and the beam dial. `StoreProvider`
-and `FilterProvider` are client components in `layout.tsx`, but `children` is
-passed as a slot, so the pages themselves stay on the server.
+## Not built yet
 
----
-
-## Design notes
-
-- **Palette.** Dark spruce chrome framing a stone "spec sheet" body. Blaze
-  orange (`#ef6a24`) is the only loud colour and it earns it — that is the
-  legally-required hunter safety colour, not a decoration.
-- **Type.** Barlow Condensed for display, Barlow for running text, JetBrains
-  Mono for anything measured. Specs are mono because they are instrument
-  readings.
-- **Themes.** Light and dark both defined as tokens in `globals.css`. The dark
-  chrome sections are dark in both themes on purpose — that is the brand, not a
-  theme choice. An explicit choice via `data-theme` on `<html>` overrides the OS
-  setting in both directions.
-- **Illustrations.** Hand-drawn SVG on a 240×240 grid at a consistent 3px
-  stroke, so the catalog reads as one system with no photography. They are
-  placeholders and are designed to be replaced.
-
----
-
-## Deliberately missing
-
-Both of these assume a database, so both are deferred with it:
-
-- **Forms that store submissions.** The newsletter validates the address in the
-  browser and tells you nothing was saved. When there is somewhere to put it,
-  point it at a Payload collection.
-- **Comments and user accounts.**
-
-There is also no checkout. The cart is real — it holds lines, quantities and a
-subtotal, and persists to `localStorage` — but the button says plainly that no
-payment provider is connected. Nothing here should ever look like it took money
-when it did not.
-
----
+- Checkout. The cart is real and holds lines, quantities and a subtotal in
+  `localStorage`, but the button says no payment provider is connected.
+- Forms that store submissions. The newsletter validates the address and reports
+  that nothing was saved.
+- Comments and user accounts.
 
 ## Deploying
 
 Vercel. The build is fully static today, so it needs no environment variables
 until Payload arrives.
 
-`CLAUDE.md` and `AGENTS.md` in the repo root were generated by Next.js itself
-for AI coding agents. Delete them or set `agentRules: false` in `next.config.ts`
-if you would rather not have them.
+`agentRules: false` in `next.config.ts` stops Next.js writing `AGENTS.md` and
+`CLAUDE.md` into the repo root on every dev run.

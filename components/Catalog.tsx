@@ -12,8 +12,8 @@ import type { HomeContent, Product } from "@/lib/types";
  *
  * Filtering happens in the browser over the full list. With twelve products
  * that is instant and needs no round trip. When the catalog grows past a few
- * hundred, this is the component that starts filtering server-side — the
- * content seam does not change either way.
+ * hundred, this is the component that starts filtering server-side. The content
+ * seam does not change either way.
  */
 export function Catalog({
   products,

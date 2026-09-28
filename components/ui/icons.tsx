@@ -1,7 +1,7 @@
 import type { SVGProps } from "react";
 
 /**
- * Stroke icons drawn on a 24x24 grid at a consistent 1.9–2 weight, so they sit
+ * Stroke icons drawn on a 24x24 grid at a consistent 1.9 to 2 weight, so they sit
  * together without any of them looking borrowed.
  */
 

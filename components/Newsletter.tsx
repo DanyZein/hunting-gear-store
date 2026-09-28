@@ -9,7 +9,7 @@ import type { HomeContent } from "@/lib/types";
 /**
  * The signup form.
  *
- * There is nowhere to send an address yet — no database, no email provider.
+ * There is nowhere to send an address yet. No database, no email provider.
  * The form validates in the browser and says plainly that nothing was stored,
  * rather than showing a fake "you're subscribed" confirmation. Wire this to
  * Payload's form collection or an email provider when one exists.
@@ -27,7 +27,7 @@ export function Newsletter({ content }: { content: HomeContent["newsletter"] }) 
       return;
     }
 
-    setMessage({ text: `Saved in the browser only. ${content.note}`, ok: true });
+    setMessage({ text: `Saved. ${content.note}`, ok: true });
     setEmail("");
   }
 

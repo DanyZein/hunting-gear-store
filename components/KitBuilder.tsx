@@ -133,10 +133,10 @@ export function KitBuilder({
                   className="flex justify-between gap-3.5 border-b border-dashed border-chrome-line py-2.5 text-[0.88rem]"
                 >
                   <span className={cn("min-w-0", product ? "text-chrome-fg-2" : "text-[#6b7364]")}>
-                    {layer.name} — {product ? product.name : "not picked"}
+                    {layer.name}: {product ? product.name : "not picked"}
                   </span>
                   <span className="flex-none text-right font-mono tabular-nums">
-                    {product ? money(product.price) : "—"}
+                    {product ? money(product.price) : "-"}
                   </span>
                 </div>
               );
@@ -164,7 +164,7 @@ export function KitBuilder({
               disabled={!complete}
               className="mt-5 w-full"
               onClick={() =>
-                addMany(chosen, `Kit added — ${layers.length} pieces, ${money(price)} at kit pricing`)
+                addMany(chosen, `Kit added: ${layers.length} pieces, ${money(price)} at kit pricing`)
               }
             >
               Add kit to cart

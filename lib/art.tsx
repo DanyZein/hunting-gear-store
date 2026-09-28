@@ -7,7 +7,7 @@ import type { ArtKey } from "./types";
  *
  * These exist so the catalog reads as a finished design with no photography.
  * When real photos land in Vercel Blob, set `image` on the product in
- * `content/products.json` and `ProductArt` renders the photo instead — the
+ * `content/products.json` and `ProductArt` renders the photo instead. The
  * drawings stay as the fallback for anything still unphotographed.
  *
  * Every drawing is authored on a 240x240 grid against the same 3px stroke, so

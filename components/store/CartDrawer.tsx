@@ -12,7 +12,7 @@ import type { Settings } from "@/lib/types";
 /**
  * The cart.
  *
- * There is no checkout behind it and no database holding the lines — the cart
+ * There is no checkout behind it and no database holding the lines. The cart
  * lives in this browser's localStorage. The button says so rather than
  * pretending to take a payment.
  */
@@ -137,7 +137,7 @@ export function CartDrawer({ settings }: { settings: Settings }) {
               toast(
                 lines.length === 0
                   ? "Nothing in the cart yet."
-                  : "Checkout is not connected yet — no payment provider is wired up.",
+                  : "Checkout is not connected yet. No payment provider is wired up.",
               )
             }
           >

@@ -3,9 +3,9 @@ import { ButtonLink } from "@/components/ui/Button";
 import type { HomeContent, Settings } from "@/lib/types";
 
 /**
- * The hero states the thesis: this is a cold-weather hunting catalog, and the
- * thing a hunter is actually thinking about — opening day — is on the page,
- * counting down, rather than a stock photo of a mountain.
+ * The hero states the thesis: this is a cold-weather hunting catalog, and
+ * opening day itself is on the page counting down rather than a stock photo of
+ * a mountain.
  */
 export function Hero({ content, settings }: { content: HomeContent; settings: Settings }) {
   const { hero } = content;

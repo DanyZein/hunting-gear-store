@@ -5,8 +5,8 @@ import type { HomeContent } from "@/lib/types";
 /**
  * The founder's letter, set as an annotated field notebook: a mono annotation
  * in the left gutter against each paragraph, hairlines between entries. The
- * annotations are the point — they date the failures, which is what makes the
- * story worth reading rather than a brand paragraph.
+ * annotations are the point. They date the failures, which is what makes the
+ * story worth reading instead of a brand paragraph.
  */
 export function FieldNotes({ content }: { content: HomeContent["notes"] }) {
   const { plate } = content;

@@ -2,9 +2,9 @@ import { TRUST_ICONS } from "@/components/ui/icons";
 import type { Settings } from "@/lib/types";
 
 /**
- * Four promises. Each one is a real policy a shop has to honour, not a badge —
- * "repaired, not replaced" is a commitment with a cost attached, which is the
- * point of putting it here.
+ * Four promises. Each one is a real policy a shop has to honor rather than a
+ * badge. "Repaired, not replaced" is a commitment with a cost attached, which
+ * is the point of putting it here.
  */
 export function TrustStrip({ settings }: { settings: Settings }) {
   return (

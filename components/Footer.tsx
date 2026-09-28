@@ -22,11 +22,11 @@ export function Footer({ settings }: { settings: Settings }) {
 
           <p className="mt-4 max-w-[34ch] text-[0.88rem] leading-relaxed">
             Cut and shipped from {settings.contact.address}. Questions about fit, layering or
-            lumens — call the shop and ask for whoever is at the bench.
+            lumens, call the shop and ask for whoever is at the bench.
           </p>
 
-          {/* Shown as selectable text, not a tel: link — a tap on a phone link
-              inside a web app does not reliably place a call. */}
+          {/* Shown as selectable text rather than a tel: link. A tap on a phone
+              link inside a web app does not reliably place a call. */}
           <p className="mt-3 font-mono text-[0.86rem] text-chrome-fg select-all">
             {settings.contact.phone}
           </p>

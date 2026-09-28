@@ -20,7 +20,7 @@ import type { ArtKey, Product } from "@/lib/types";
  * catalog shipped to the client, and a line keeps the price it was added at,
  * which is what a real cart does.
  *
- * There is no checkout. There is no database. That is deliberate — see the
+ * There is no checkout. There is no database. That is deliberate; see the
  * README. Adding Payload later does not touch this file.
  */
 

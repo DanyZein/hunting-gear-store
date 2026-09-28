@@ -2,7 +2,7 @@ import { cn } from "@/lib/cn";
 
 /**
  * The small mono label above a headline. `tone` picks the ink rather than a
- * className override, because two colour utilities on one element have an
+ * className override, because two color utilities on one element have an
  * unpredictable winner in Tailwind.
  */
 export function Eyebrow({

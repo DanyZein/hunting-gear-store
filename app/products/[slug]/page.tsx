@@ -75,7 +75,7 @@ export default async function ProductPage({ params }: PageProps) {
             </div>
             {!product.image && (
               <p className="border-t border-chrome-line px-4 py-3 font-mono text-[0.6rem] tracking-[0.12em] uppercase text-chrome-fg-2">
-                Illustration — photography pending
+                Illustration, photography pending
               </p>
             )}
           </div>
@@ -105,7 +105,7 @@ export default async function ProductPage({ params }: PageProps) {
               <AddToCartButton product={product} />
               {layer && (
                 <span className="rounded-[3px] border border-line px-3.5 py-2 font-mono text-[0.62rem] tracking-[0.1em] uppercase text-fg-3">
-                  {layer.name} layer — {layer.note}
+                  {layer.name} layer: {layer.note}
                 </span>
               )}
             </div>

@@ -5,7 +5,7 @@ import type { HomeContent, Report } from "@/lib/types";
 /**
  * Field reports.
  *
- * Each one ends with real conditions — temperature, wind, hours sat. A review
+ * Each one ends with real conditions: temperature, wind, hours sat. A review
  * without conditions is a review of nothing.
  */
 export function Reports({

@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 
 /**
  * `blaze` is the one loud element on any screen. Everything else is quiet on
- * purpose — the accent only works because it is rare.
+ * purpose, because the accent only works when it is rare.
  */
 export type ButtonVariant = "blaze" | "ghost" | "solid" | "line";
 export type ButtonSize = "md" | "sm";

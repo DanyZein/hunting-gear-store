@@ -154,7 +154,7 @@ export function LightingRig({
               htmlFor="output-dial"
               className="mb-3 block font-mono text-[0.62rem] tracking-[0.18em] uppercase text-chrome-fg-2"
             >
-              Output — drag to set the beam
+              Output: drag to set the beam
             </label>
             <input
               id="output-dial"
@@ -167,9 +167,9 @@ export function LightingRig({
               className="dial"
             />
             <div className="mt-2.5 flex justify-between font-mono text-[0.58rem] tracking-[0.1em] text-chrome-fg-2 tabular-nums">
-              <span>{range.minLumens} lm — walk-out</span>
+              <span>{range.minLumens} lm (walk-out)</span>
               <span>{Math.round((range.minLumens + range.maxLumens) / 2)} lm</span>
-              <span>{range.maxLumens} lm — scan</span>
+              <span>{range.maxLumens} lm (scan)</span>
             </div>
           </div>
 
@@ -186,7 +186,7 @@ export function LightingRig({
 
         <div className="mt-8 flex flex-wrap items-center gap-3.5">
           <Button type="button" variant="blaze" onClick={() => add(product)}>
-            Add the {product.name} — {money(product.price)}
+            Add the {product.name} for {money(product.price)}
           </Button>
           <ButtonLink href="/#catalog" variant="ghost">
             All lighting

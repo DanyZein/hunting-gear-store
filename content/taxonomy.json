@@ -39,8 +39,8 @@
     { "id": "lighting", "name": "Lighting" }
   ],
   "layers": [
-    { "key": "base", "name": "Base", "note": "Wicks — worn against skin" },
-    { "key": "mid", "name": "Mid", "note": "Holds heat — the insulating layer" },
+    { "key": "base", "name": "Base", "note": "Wicks, worn against skin" },
+    { "key": "mid", "name": "Mid", "note": "Holds heat, the insulating layer" },
     { "key": "outer", "name": "Outer", "note": "Blocks wind, water and briars" }
   ]
 }

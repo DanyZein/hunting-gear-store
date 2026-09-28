@@ -1,25 +1,25 @@
 {
   "home": {
     "hero": {
-      "eyebrow": "Field catalog — Season 2026",
+      "eyebrow": "Field catalog, Season 2026",
       "headline": "Gear for the cold end of the season",
       "body": "Layering systems, boots, packs and lights for hunters who are still in the timber when the temperature drops and the light runs out. Every piece spends a full season in the field before it earns a place on this page.",
       "primaryCta": { "label": "Build a layering kit", "href": "#system" },
       "secondaryCta": { "label": "Shop the catalog", "href": "#catalog" }
     },
     "grounds": {
-      "eyebrow": "Step 1 — your ground",
+      "eyebrow": "Step 1: your ground",
       "headline": "Where are you hunting?",
       "body": "Timber, prairie and marsh ask for different gear. Pick where you'll spend your season and the catalog narrows to what actually works there."
     },
     "system": {
-      "eyebrow": "Step 2 — the layering system",
+      "eyebrow": "Step 2: the layering system",
       "headline": "Three layers, one kit",
       "body": "Nobody buys a jacket on its own. Pick one piece from each layer and we price the three together.",
       "note": "Ships as three pieces, one box. Sizes set at checkout."
     },
     "catalog": {
-      "eyebrow": "Step 3 — the catalog",
+      "eyebrow": "Step 3: the catalog",
       "headline": "Season 2026"
     },
     "lighting": {
@@ -55,11 +55,11 @@
       ],
       "signature": {
         "name": "Walt Merrick",
-        "role": "Founder — still hunts the November rifle season"
+        "role": "Founder, still hunts the November rifle season"
       },
       "plate": {
         "art": "jacket",
-        "caption": "Plate 04 — pattern room",
+        "caption": "Plate 04, pattern room",
         "place": "Bozeman, MT"
       }
     },
@@ -70,7 +70,7 @@
     "newsletter": {
       "headline": "One email a month",
       "body": "Field notes, restock alerts and the season calendar. Nothing else, and no more than that.",
-      "note": "Concept build — the address is validated in the browser and not sent anywhere yet."
+      "note": "The address is validated in the browser and not sent anywhere."
     }
   }
 }

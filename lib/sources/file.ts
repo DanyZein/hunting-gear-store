@@ -3,7 +3,7 @@
  *
  * The only module in the app that reads from disk. Everything else goes through
  * `lib/content.ts`. When you add Payload you write a sibling to this file and
- * this one stops being imported — you do not have to delete it, and keeping it
+ * this one stops being imported. You do not have to delete it, and keeping it
  * around is useful for tests and for `next build` on a machine with no database.
  */
 
@@ -48,7 +48,7 @@ async function readJson<T>(file: string): Promise<T> {
     parsed = JSON.parse(raw) as T;
   } catch (err) {
     throw new Error(
-      `Content file is not valid JSON: content/${file} — ${(err as Error).message}`,
+      `Content file is not valid JSON (content/${file}): ${(err as Error).message}`,
     );
   }
 

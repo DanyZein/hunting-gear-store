@@ -11,8 +11,8 @@
  * against Payload's local API, and flip the one line below. Every page keeps
  * working, because every page only ever called these functions.
  *
- * Break the rule — import products.json directly into a component — and adding
- * the CMS becomes a rewrite of every file that did it.
+ * If you import products.json directly into a component, adding the CMS becomes
+ * a rewrite of every file that did it.
  */
 
 import { fileSource } from "./sources/file";

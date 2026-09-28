@@ -182,7 +182,7 @@ export interface HomeContent {
     productId: string;
     /**
      * The three numbers the dial moves between. Runtime runs the other way from
-     * output — that inverse relationship is the whole reason the dial exists.
+     * output, and that inverse relationship is why the dial exists.
      */
     dial: {
       minLumens: number;
