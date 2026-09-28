@@ -1,0 +1,242 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   Design tokens
+
+   Two families live here and they behave differently on purpose.
+
+   1. The CHROME tokens are near-constant. The header, hero, lighting rig and
+      footer are dark spruce in both themes — that is the brand, not a theme
+      choice.
+
+   2. The GROUND tokens swap. They describe the paper the catalog is printed on:
+      stone in light, near-black in dark. Everything readable sits on these.
+
+   `@theme inline` makes Tailwind emit `var(--ground)` rather than the resolved
+   hex, which is what lets a media query swap the palette at runtime.
+   ========================================================================= */
+
+@theme inline {
+  /* brand constants */
+  --color-ink: #0c100c;
+  --color-spruce: #141d16;
+  --color-spruce-2: #1b261d;
+  --color-moss: #2c3a2c;
+  --color-moss-2: #46583f;
+  --color-blaze: #ef6a24;
+  --color-blaze-2: #c9500f;
+  --color-lamp: #ffd08a;
+
+  /* theme-aware paper and ink */
+  --color-ground: var(--ground);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-fg-2: var(--fg-2);
+  --color-fg-3: var(--fg-3);
+
+  /* dark chrome */
+  --color-chrome: var(--chrome);
+  --color-chrome-2: var(--chrome-2);
+  --color-chrome-line: var(--chrome-line);
+  --color-chrome-fg: var(--chrome-fg);
+  --color-chrome-fg-2: var(--chrome-fg-2);
+
+  --font-display: var(--font-barlow-condensed), "Arial Narrow", system-ui, sans-serif;
+  --font-body: var(--font-barlow), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+:root {
+  --ground: #e7e8e0;
+  --surface: #f3f4ee;
+  --surface-2: #dde0d4;
+  --line: #c7cbbc;
+  --fg: #11150e;
+  --fg-2: #4c5344;
+  --fg-3: #6f7665;
+
+  --chrome: #0c100c;
+  --chrome-2: #141d16;
+  --chrome-line: #2c3a2c;
+  --chrome-fg: #e7e8e0;
+  --chrome-fg-2: #939b88;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #0a0d0a;
+    --surface: #131813;
+    --surface-2: #1b211b;
+    --line: #2b332b;
+    --fg: #e9eae1;
+    --fg-2: #a7ae9c;
+    --fg-3: #7e8574;
+    color-scheme: dark;
+  }
+}
+
+/* An explicit choice in the theme toggle wins over the OS setting, both ways. */
+:root[data-theme="dark"] {
+  --ground: #0a0d0a;
+  --surface: #131813;
+  --surface-2: #1b211b;
+  --line: #2b332b;
+  --fg: #e9eae1;
+  --fg-2: #a7ae9c;
+  --fg-3: #7e8574;
+  color-scheme: dark;
+}
+
+/* ============================================================================
+   Base
+   ========================================================================= */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--ground);
+    color: var(--fg);
+    font-family: var(--font-body), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Anchor targets clear the sticky header. */
+  [id] {
+    scroll-margin-top: 88px;
+  }
+
+  ::selection {
+    background: var(--blaze);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--blaze);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+/* ============================================================================
+   Components that Tailwind utilities cannot express
+   ========================================================================= */
+
+@layer components {
+  /* Topographic contour lines. The one decorative texture in the design; it
+     carries the outdoors feel without printing literal camouflage. */
+  .topo {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='460' height='460' viewBox='0 0 460 460'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.06' stroke-width='1.1'%3E%3Cpath d='M18 158 C40 82 116 38 190 50 C264 62 318 116 306 180 C294 244 218 286 144 274 C70 262 -4 234 18 158 Z'/%3E%3Cpath d='M62 166 C78 112 132 82 182 90 C232 98 266 136 258 180 C250 224 200 252 150 244 C100 236 46 220 62 166 Z'/%3E%3Cpath d='M102 172 C113 138 150 120 182 126 C214 132 236 156 230 184 C224 212 192 228 160 222 C128 216 91 206 102 172 Z'/%3E%3Cpath d='M138 178 C144 158 168 147 188 151 C208 155 221 170 217 187 C213 204 194 214 174 210 C154 206 132 198 138 178 Z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* The pre-dawn glow at the bottom of the hero. Kept here rather than as an
+     arbitrary Tailwind value because the nested rgba() commas make it
+     unreadable inline. */
+  .hero-glow {
+    background: radial-gradient(
+      120% 78% at 22% 108%,
+      rgba(255, 208, 138, 0.2) 0%,
+      rgba(239, 106, 36, 0.09) 34%,
+      transparent 68%
+    );
+  }
+
+  .topo-strong {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='460' height='460' viewBox='0 0 460 460'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.13' stroke-width='1.1'%3E%3Cpath d='M18 158 C40 82 116 38 190 50 C264 62 318 116 306 180 C294 244 218 286 144 274 C70 262 -4 234 18 158 Z'/%3E%3Cpath d='M62 166 C78 112 132 82 182 90 C232 98 266 136 258 180 C250 224 200 252 150 244 C100 236 46 220 62 166 Z'/%3E%3Cpath d='M102 172 C113 138 150 120 182 126 C214 132 236 156 230 184 C224 212 192 228 160 222 C128 216 91 206 102 172 Z'/%3E%3Cpath d='M138 178 C144 158 168 147 188 151 C208 155 221 170 217 187 C213 204 194 214 174 210 C154 206 132 198 138 178 Z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  /* Faint measurement marks behind product illustrations, so an empty tile
+     reads as a technical drawing sheet rather than a missing photo. */
+  .topo-tile {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300' viewBox='0 0 300 300'%3E%3Cg fill='none' stroke='%23ffffff' stroke-opacity='.5' stroke-width='1'%3E%3Cpath d='M12 104 C28 54 78 24 126 32 C174 40 208 76 200 118 C192 160 142 188 94 180 C46 172 0 154 12 104 Z'/%3E%3Cpath d='M44 110 C55 74 92 54 126 60 C160 66 182 92 176 122 C170 152 134 170 100 164 C66 158 33 146 44 110 Z'/%3E%3Cpath d='M76 116 C83 93 108 80 130 84 C152 88 167 104 163 123 C159 142 135 153 113 149 C91 145 69 139 76 116 Z'/%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.42;
+  }
+
+  /* The output dial on the lighting rig. Vendor pseudo-elements mean this
+     cannot be a Tailwind utility. */
+  .dial {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 2px;
+    background: var(--chrome-line);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .dial::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-lamp, #ffd08a);
+    border: 2px solid var(--chrome);
+    box-shadow:
+      0 0 0 1px #ffd08a,
+      0 0 22px rgba(255, 208, 138, 0.55);
+  }
+
+  .dial::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #ffd08a;
+    border: 2px solid var(--chrome);
+    box-shadow:
+      0 0 0 1px #ffd08a,
+      0 0 22px rgba(255, 208, 138, 0.55);
+  }
+
+  .dial::-moz-range-track {
+    height: 2px;
+    background: var(--chrome-line);
+  }
+
+  /* Safe-area insets. These resolve to 0 unless the viewport meta opts into
+     `viewport-fit=cover`, so they are free insurance on notched phones. */
+  .pad-safe-t {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  .pad-safe-b {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+}
+
+@layer utilities {
+  /* One orchestrated motion: the season dot in the top bar. */
+  @keyframes pulse-dot {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.28;
+    }
+  }
+
+  .animate-pulse-dot {
+    animation: pulse-dot 2.4s ease-in-out infinite;
+  }
+}

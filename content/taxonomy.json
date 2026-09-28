@@ -1,0 +1,46 @@
+{
+  "grounds": [
+    {
+      "id": "all",
+      "name": "All ground",
+      "sub": "The whole catalog",
+      "icon": "M3 20 L11 7 L15 13 L19 8 L27 20 Z"
+    },
+    {
+      "id": "alpine",
+      "name": "Alpine",
+      "sub": "Above treeline",
+      "icon": "M3 20 L11 7 L15 13 L19 8 L27 20 Z M11 7 L8 12 L14 12"
+    },
+    {
+      "id": "timber",
+      "name": "Timber",
+      "sub": "Dark, close cover",
+      "icon": "M15 3 L22 13 L18 13 L24 21 L6 21 L12 13 L8 13 Z M15 21 v4"
+    },
+    {
+      "id": "prairie",
+      "name": "Prairie",
+      "sub": "Long sightlines",
+      "icon": "M3 21 h24 M6 21 v-7 M12 21 v-11 M18 21 v-6 M24 21 v-9"
+    },
+    {
+      "id": "marsh",
+      "name": "Marsh",
+      "sub": "Water and reeds",
+      "icon": "M3 17 q4 -3 8 0 t8 0 t6 0 M3 21 q4 -3 8 0 t8 0 t6 0 M12 15 v-9 M18 15 v-6"
+    }
+  ],
+  "groups": [
+    { "id": "all", "name": "All" },
+    { "id": "apparel", "name": "Apparel" },
+    { "id": "footwear", "name": "Footwear" },
+    { "id": "packs", "name": "Packs" },
+    { "id": "lighting", "name": "Lighting" }
+  ],
+  "layers": [
+    { "key": "base", "name": "Base", "note": "Wicks — worn against skin" },
+    { "key": "mid", "name": "Mid", "note": "Holds heat — the insulating layer" },
+    { "key": "outer", "name": "Outer", "note": "Blocks wind, water and briars" }
+  ]
+}

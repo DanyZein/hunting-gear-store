@@ -1,0 +1,113 @@
+{
+  "brand": {
+    "name": "Ninebark",
+    "sub": "Field Supply"
+  },
+  "description": "Layering systems, boots, packs and lights for cold-weather hunters. Cut and field-tested in Bozeman, Montana.",
+  "contact": {
+    "address": "1420 Huffine Lane, Bozeman, Montana 59718",
+    "phone": "(406) 555-0148",
+    "email": "bench@ninebark.example"
+  },
+  "season": {
+    "label": "Whitetail archery opener",
+    "month": 10,
+    "day": 1,
+    "hour": 5,
+    "minute": 30,
+    "note": "Whitetail archery, Montana general season. Legal light 6:52 a.m."
+  },
+  "nav": [
+    {
+      "label": "Shop",
+      "href": "/#catalog",
+      "columns": [
+        {
+          "title": "Apparel",
+          "links": [
+            { "label": "Outerwear", "href": "/#catalog", "group": "apparel" },
+            { "label": "Mid layers", "href": "/#catalog", "group": "apparel" },
+            { "label": "Base layers", "href": "/#catalog", "group": "apparel" }
+          ]
+        },
+        {
+          "title": "Boots & carry",
+          "links": [
+            { "label": "Boots", "href": "/#catalog", "group": "footwear" },
+            { "label": "Packs", "href": "/#catalog", "group": "packs" },
+            { "label": "Everything", "href": "/#catalog" }
+          ]
+        },
+        {
+          "title": "Lighting",
+          "links": [
+            { "label": "Headlamps", "href": "/#catalog", "group": "lighting" },
+            { "label": "Handheld", "href": "/#catalog", "group": "lighting" },
+            { "label": "Beam demo", "href": "/#lighting" }
+          ]
+        }
+      ]
+    },
+    { "label": "Layering", "href": "/#system" },
+    { "label": "Lighting", "href": "/#lighting" },
+    { "label": "Field notes", "href": "/#notes" }
+  ],
+  "announcements": [
+    "Free freight on orders over $150",
+    "60-day field trial on every order",
+    "Free seam and zip repairs for five seasons"
+  ],
+  "trust": [
+    {
+      "icon": "freight",
+      "title": "Free freight over $150",
+      "body": "Flat $9 under that. Ships from Bozeman in one business day."
+    },
+    {
+      "icon": "trial",
+      "title": "60-day field trial",
+      "body": "Hunt in it. Send it back muddy if it doesn't work out."
+    },
+    {
+      "icon": "repair",
+      "title": "Repaired, not replaced",
+      "body": "Free repair for five seasons on every seam and zip we sew."
+    },
+    {
+      "icon": "fit",
+      "title": "Sized by layer, not by chart",
+      "body": "Every garment lists the layers it fits under. Call us for a fit check."
+    }
+  ],
+  "freeFreightThreshold": 150,
+  "freightNote": "Free freight on orders over $150.",
+  "footer": [
+    {
+      "title": "Shop",
+      "links": [
+        { "label": "Outerwear", "href": "/#catalog" },
+        { "label": "Base & mid layers", "href": "/#catalog" },
+        { "label": "Boots", "href": "/#catalog" },
+        { "label": "Packs", "href": "/#catalog" },
+        { "label": "Lighting", "href": "/#catalog" }
+      ]
+    },
+    {
+      "title": "Help",
+      "links": [
+        { "label": "Sizing & layering", "href": "/#system" },
+        { "label": "Beam guide", "href": "/#lighting" },
+        { "label": "Repairs", "href": "/#notes" },
+        { "label": "Shipping & returns", "href": "/#notes" }
+      ]
+    },
+    {
+      "title": "Field",
+      "links": [
+        { "label": "Field notes", "href": "/#notes" },
+        { "label": "Our ground", "href": "/#notes" },
+        { "label": "Conservation partners", "href": "/#notes" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,315 @@
+{
+  "products": [
+    {
+      "id": "ridgeline-jacket",
+      "name": "Ridgeline Softshell Jacket",
+      "category": "Outerwear",
+      "group": "apparel",
+      "layer": "outer",
+      "price": 389,
+      "grounds": ["alpine", "timber"],
+      "badge": "Best seller",
+      "art": "jacket",
+      "specs": [
+        { "k": "Temp", "v": "0°F" },
+        { "k": "Water", "v": "20K mm" },
+        { "k": "Weight", "v": "2 lb 4 oz" }
+      ],
+      "summary": "The jacket the whole line is built around. Wind-blocking softshell with a hood that clears a ball cap.",
+      "description": [
+        "This is the third pattern. The first two failed the same way — the shoulder seam sat where a pack strap rides, and it pulled open by the end of a season. The seam now sits two inches forward with a heavier bar tack at the strap point, and the hood is cut to clear a cap without craning your neck.",
+        "The face fabric is a four-way stretch softshell with a 20K/20K membrane, so it sheds a wet snow and still breathes on the climb. Pit zips run long enough to dump heat on a steep push without taking the pack off."
+      ],
+      "features": [
+        "Helmet-compatible hood with a wire brim",
+        "Two-way pit zips, 14 in",
+        "Chest pocket sized for a rangefinder",
+        "DWR finish, PFC-free"
+      ]
+    },
+    {
+      "id": "coldfront-bib",
+      "name": "Coldfront Insulated Bib",
+      "category": "Outerwear",
+      "group": "apparel",
+      "layer": "outer",
+      "price": 429,
+      "grounds": ["prairie", "timber"],
+      "badge": "New",
+      "art": "bib",
+      "specs": [
+        { "k": "Temp", "v": "-20°F" },
+        { "k": "Fill", "v": "800 g" },
+        { "k": "Weight", "v": "3 lb 1 oz" }
+      ],
+      "summary": "Full-length side zips so you can layer up at the truck without taking your boots off.",
+      "description": [
+        "Built for the stand. 800 grams of synthetic fill through the body and legs, with a windproof shell that does not rustle when you shift your weight.",
+        "The full-length side zips are the point. You put the bib on over your boots at the truck, then vent them on the walk in and close them once you are sitting."
+      ],
+      "features": [
+        "Full-length two-way side zips",
+        "Reinforced knees and seat",
+        "Zip-off leg cuffs",
+        "Two chest pockets, two handwarmers"
+      ]
+    },
+    {
+      "id": "blaze-vest",
+      "name": "Blaze Safety Vest",
+      "category": "Outerwear",
+      "group": "apparel",
+      "price": 89,
+      "grounds": ["prairie", "timber", "marsh"],
+      "art": "vestBlaze",
+      "specs": [
+        { "k": "Coverage", "v": "500 in²" },
+        { "k": "Weight", "v": "9 oz" },
+        { "k": "Class", "v": "ANSI II" }
+      ],
+      "summary": "500 square inches of blaze orange that packs down to the size of a fist.",
+      "description": [
+        "Legally sufficient blaze coverage in a vest that folds into its own pocket. Meets ANSI Class II, which several states now require for the rifle season.",
+        "Cut roomy enough to go over a shell without bunching at the shoulders."
+      ],
+      "features": [
+        "Meets ANSI/ISEA 107 Class II",
+        "Stuff sack sewn into the back panel",
+        "Reflective piping on both sides"
+      ]
+    },
+    {
+      "id": "backcountry-fleece",
+      "name": "Backcountry Fleece Mid",
+      "category": "Mid layer",
+      "group": "apparel",
+      "layer": "mid",
+      "price": 189,
+      "grounds": ["alpine", "timber", "prairie", "marsh"],
+      "art": "fleece",
+      "specs": [
+        { "k": "Weight", "v": "14 oz" },
+        { "k": "Fabric", "v": "320 gsm" },
+        { "k": "Stretch", "v": "4-way" }
+      ],
+      "summary": "The layer that does the actual insulating. Wears under any shell in the line.",
+      "description": [
+        "320 gsm grid fleece with a smooth face so it slides under a shell instead of grabbing it. Four-way stretch through the shoulders keeps it out of the way when you are drawing.",
+        "This is the piece most hunters end up wearing alone on the walk in and under everything once they sit down."
+      ],
+      "features": [
+        "Grid-fleece backer moves moisture out",
+        "Thumb loops",
+        "Two zip handwarmer pockets",
+        "Flatlock seams throughout"
+      ]
+    },
+    {
+      "id": "stillwater-vest",
+      "name": "Stillwater Down Vest",
+      "category": "Mid layer",
+      "group": "apparel",
+      "layer": "mid",
+      "price": 159,
+      "grounds": ["alpine", "timber", "prairie"],
+      "art": "vestDown",
+      "specs": [
+        { "k": "Fill", "v": "800 FP" },
+        { "k": "Weight", "v": "11 oz" },
+        { "k": "Packs", "v": "6 × 9 in" }
+      ],
+      "summary": "Core warmth that packs into its own pocket. The layer you carry and put on when you stop moving.",
+      "description": [
+        "800 fill-power responsibly sourced down, baffled so it does not migrate to the corners. Weighs eleven ounces and stuffs into a pocket roughly the size of a quart bottle.",
+        "The armholes are cut wide so it goes over a fleece without binding, and the collar stands high enough to cover the gap between a jacket collar and your neck."
+      ],
+      "features": [
+        "800 fill-power down, RDS certified",
+        "Stuffs into the left hand pocket",
+        "Elastic-bound armholes",
+        "Two zip hand pockets"
+      ]
+    },
+    {
+      "id": "willow-crew",
+      "name": "Willow Lightweight Crew",
+      "category": "Base layer",
+      "group": "apparel",
+      "layer": "base",
+      "price": 89,
+      "grounds": ["alpine", "timber", "prairie", "marsh"],
+      "art": "crew",
+      "specs": [
+        { "k": "Weight", "v": "6 oz" },
+        { "k": "Fabric", "v": "150 gsm" },
+        { "k": "Dries", "v": "12 min" }
+      ],
+      "summary": "The earliest-season base layer. Wicks hard, dries in about twelve minutes.",
+      "description": [
+        "A 150 gsm knit for September archery and the warm end of the rifle season. It moves sweat off your back fast enough that you do not get cold the moment you stop walking.",
+        "Cut close without being a compression piece, so it disappears under a mid layer."
+      ],
+      "features": [
+        "150 gsm, 92% polyester / 8% spandex",
+        "Odor-treated, no silver",
+        "Thumb loops",
+        "Tagless neck label"
+      ]
+    },
+    {
+      "id": "cedar-merino",
+      "name": "Cedar Merino Zip",
+      "category": "Base layer",
+      "group": "apparel",
+      "layer": "base",
+      "price": 119,
+      "grounds": ["alpine", "timber"],
+      "badge": "Field pick",
+      "art": "zipBase",
+      "specs": [
+        { "k": "Weight", "v": "9 oz" },
+        { "k": "Micron", "v": "18.5 µ" },
+        { "k": "Fabric", "v": "190 gsm" }
+      ],
+      "summary": "Merino against the skin for the cold end of the season. Quarter zip so you can dump heat without stripping.",
+      "description": [
+        "190 gsm merino at 18.5 micron, which is the point where it stops feeling like wool. Warm when wet and it does not hold odor, so it can go a full week in the backcountry.",
+        "The quarter zip matters more than it sounds. Opening it on a climb is the difference between arriving dry and arriving soaked."
+      ],
+      "features": [
+        "18.5 micron merino, mulesing-free",
+        "190 gsm, 87% merino / 13% nylon",
+        "Quarter zip with a chin guard",
+        "Flatlock seams, offset at the shoulder"
+      ]
+    },
+    {
+      "id": "foothold-boot",
+      "name": "Foothold 800g Boot",
+      "category": "Footwear",
+      "group": "footwear",
+      "price": 329,
+      "grounds": ["alpine", "prairie"],
+      "art": "boot",
+      "specs": [
+        { "k": "Insul", "v": "800 g" },
+        { "k": "Temp", "v": "-40°F" },
+        { "k": "Height", "v": "10 in" }
+      ],
+      "summary": "An 800-gram boot that still lets you feel the ground on a stalk.",
+      "description": [
+        "800 grams of Thinsulate through the shaft with a 400-gram footbed, which is the split that keeps your toes warm on a four-hour sit without turning the boot into a brick on the walk in.",
+        "The outsole is a sticky rubber compound with a heel brake for downhill stalks. Waterproof membrane is bootie-constructed, so there is no seam for water to find."
+      ],
+      "features": [
+        "800 g shaft / 400 g footbed insulation",
+        "Waterproof bootie construction",
+        "Aggressive heel brake",
+        "Recraftable sole"
+      ]
+    },
+    {
+      "id": "silt-boot",
+      "name": "Silt Rubber Boot",
+      "category": "Footwear",
+      "group": "footwear",
+      "price": 189,
+      "grounds": ["marsh", "prairie"],
+      "badge": "New",
+      "art": "rubberBoot",
+      "specs": [
+        { "k": "Height", "v": "16 in" },
+        { "k": "Temp", "v": "-20°F" },
+        { "k": "Weight", "v": "4 lb 2 oz" }
+      ],
+      "summary": "16 inches of waterproof rubber for the marsh, with a neoprene collar that does not rub.",
+      "description": [
+        "For setting decoys and wading a flooded timber hole. Seamless rubber over a 7mm neoprene bootie, 16 inches up the shin.",
+        "The collar has a stretch gusset instead of a rigid rim, which is the difference between a boot you can walk a mile in and one you cannot."
+      ],
+      "features": [
+        "Seamless rubber over 7 mm neoprene",
+        "Stretch gusset collar",
+        "Aggressive mud-release outsole",
+        "Kick-off heel ledge"
+      ]
+    },
+    {
+      "id": "hangfire-pack",
+      "name": "Hangfire 30 Daypack",
+      "category": "Packs",
+      "group": "packs",
+      "price": 249,
+      "grounds": ["alpine", "timber"],
+      "art": "pack",
+      "specs": [
+        { "k": "Volume", "v": "2400 in³" },
+        { "k": "Weight", "v": "3 lb 6 oz" },
+        { "k": "Load", "v": "45 lb" }
+      ],
+      "summary": "A 30-liter daypack that carries a quartered load if the day goes well.",
+      "description": [
+        "Sized for a day out but built to carry meat if you are lucky. The frame sheet and hip belt are rated to 45 pounds, which is a quartered hindquarter plus your gear.",
+        "The lid comes off as a hip pack for a light stalk, and the whole thing compresses flat against a treestand."
+      ],
+      "features": [
+        "2400 in³ main compartment",
+        "Removable lid converts to a hip pack",
+        "Meat shelf between the frame and bag",
+        "Quiet brushed fabric, no crinkle"
+      ]
+    },
+    {
+      "id": "nightfall-1400",
+      "name": "Nightfall 1400 Headlamp",
+      "category": "Lighting",
+      "group": "lighting",
+      "price": 179,
+      "grounds": ["alpine", "timber", "prairie", "marsh"],
+      "badge": "Field pick",
+      "art": "headlamp",
+      "specs": [
+        { "k": "Output", "v": "1400 lm" },
+        { "k": "Reach", "v": "210 yd" },
+        { "k": "Runtime", "v": "4 hr" }
+      ],
+      "summary": "One light for the walk in and the scan, because you dial the output instead of choosing between them.",
+      "description": [
+        "At full output it throws 1400 lumens to 210 yards, which is enough to pick eyes at the far edge of a field. Drop it to 200 and it runs 36 hours, which covers a two-mile walk-in and the drag out.",
+        "The head tilts through 90 degrees with a detent at each stop, so it stays where you put it. Separate red and green emitters for close work that will not blow your night vision."
+      ],
+      "features": [
+        "200–1400 lumens, stepless dial",
+        "4 to 36 hour runtime",
+        "Red and green secondary emitters",
+        "IPX7, submersible to 1 m",
+        "USB-C rechargeable, 3000 mAh cell"
+      ]
+    },
+    {
+      "id": "longthrow-600",
+      "name": "Longthrow 600 Spotlight",
+      "category": "Lighting",
+      "group": "lighting",
+      "price": 229,
+      "grounds": ["prairie", "marsh"],
+      "art": "spotlight",
+      "specs": [
+        { "k": "Output", "v": "600 lm" },
+        { "k": "Reach", "v": "640 yd" },
+        { "k": "Runtime", "v": "2.5 hr" }
+      ],
+      "summary": "640 yards of throw for counting points across a field before you commit to the stalk.",
+      "description": [
+        "A focused beam is not about brightness, it is about reach. 600 lumens through a deep reflector throws to 640 yards, which is across most fields you will glass from a road.",
+        "Lockout prevents it coming on in a pack. The body is machined aluminum with a rubber armor sleeve so it survives a drop onto gravel."
+      ],
+      "features": [
+        "640 yd beam reach",
+        "Machined aluminum body, rubber armor",
+        "Momentary and lockout tail switch",
+        "IPX8, submersible to 2 m"
+      ]
+    }
+  ]
+}
