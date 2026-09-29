@@ -1,0 +1,113 @@
+# Hostinger / Apache / LiteSpeed config for the static export.
+#
+# This file lives in `public/` so `next build` copies it into `out/`, which means
+# it travels with the site and is version-controlled rather than hand-edited on
+# the server. Upload the CONTENTS of `out/` into `public_html/` and this comes
+# along with it.
+#
+# Each directive sits inside the <IfModule> for the module that actually
+# provides it, not the module it happens to be near. Nesting a `Header` inside
+# <IfModule mod_expires.c> would silently drop every cache header on a host with
+# Expires off but Headers on. A directive whose module is missing is skipped
+# rather than returning a 500 for the whole site.
+
+# ── Limits ────────────────────────────────────────────────────────────────────
+# Hostinger fronts sites with a proxy. These tell Apache to trust its
+# X-Forwarded-Proto, which the HTTPS redirect further down depends on. Without
+# it the redirect can loop, because Apache sees every request as http.
+<IfModule mod_remoteip.c>
+  RemoteIPHeader X-Forwarded-For
+</IfModule>
+
+# ── 404 ───────────────────────────────────────────────────────────────────────
+# Next emits `404.html` at the root of the export. Without this, Apache serves
+# its own bare 404 page and the site's styled one never appears.
+ErrorDocument 404 /404.html
+
+# ── Directory index ───────────────────────────────────────────────────────────
+# `trailingSlash: true` in next.config.ts means every route is a real directory
+# holding an index.html, so this is all the routing that is needed.
+DirectoryIndex index.html
+
+# Keep the default: redirect `/products/foo` to `/products/foo/`. The redirect
+# has to happen, or relative asset URLs inside the page resolve against the
+# wrong base. mod_dir handles this on its own; the line is here to be explicit,
+# because turning it off is a common fix that breaks this layout.
+<IfModule mod_dir.c>
+  DirectorySlash On
+</IfModule>
+
+# ── Default charset ───────────────────────────────────────────────────────────
+AddDefaultCharset UTF-8
+
+# ── Compression ───────────────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml application/manifest+json
+</IfModule>
+
+# ── Caching ───────────────────────────────────────────────────────────────────
+<IfModule mod_expires.c>
+  ExpiresActive On
+  # Next fingerprints every filename in /_next/static with a content hash, so a
+  # changed file is a different URL.
+  <FilesMatch "\.(js|css|woff2?)$">
+    ExpiresDefault "access plus 1 year"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpg|jpeg|gif|webp|avif|svg|ico)$">
+    ExpiresDefault "access plus 6 months"
+  </FilesMatch>
+  # HTML must NOT be cached hard, or a deploy strands visitors on the old build
+  # until their cache expires. The files are small; revalidate every time.
+  <FilesMatch "\.html$">
+    ExpiresDefault "access plus 0 seconds"
+  </FilesMatch>
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Same lifetimes as above, stated as Cache-Control. `immutable` is what stops
+  # a browser revalidating a fingerprinted asset it already holds.
+  <FilesMatch "\.(js|css|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(png|jpg|jpeg|gif|webp|avif|svg|ico)$">
+    Header set Cache-Control "public, max-age=15552000"
+  </FilesMatch>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+</IfModule>
+
+# ── Hide dotfiles ─────────────────────────────────────────────────────────────
+# Apache 2.4 denies `.ht*` by default in its stock config, but Hostinger ships
+# its own httpd.conf. Stated here so it does not depend on that.
+<IfModule mod_authz_core.c>
+  <FilesMatch "^\.">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  <FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+</IfModule>
+
+# ── HTTPS ─────────────────────────────────────────────────────────────────────
+# Uncomment AFTER the SSL certificate is issued in Hostinger and you have
+# confirmed https:// loads. Enabling it before the certificate exists produces a
+# redirect loop on a domain with no working TLS yet.
+#
+# <IfModule mod_rewrite.c>
+#   RewriteEngine On
+#   RewriteCond %{HTTPS} off
+#   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# </IfModule>
+#
+# To also force the www (or non-www) form, add it here. Pick one canonical host
+# and stick to it; serving both splits search ranking between them.

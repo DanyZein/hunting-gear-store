@@ -11,8 +11,9 @@ added later without touching the pages.
 
 ```bash
 pnpm install
-pnpm dev        # http://localhost:3000
-pnpm build      # prerenders every route statically
+pnpm dev        # http://localhost:3000, with hot reload
+pnpm build      # prerenders every route into out/
+pnpm preview    # serves out/ the way Hostinger will, at :4000
 pnpm typecheck
 ```
 
@@ -107,9 +108,15 @@ costs nothing, and it lets `next build` run on a machine with no database.
 `Product.image` exists, and both the card and the product page render it, falling
 back to the SVG illustration. To switch over:
 
-1. Add the Blob hostname to `next.config.ts` under `images.remotePatterns`.
-2. Set `image` on the product.
-3. Swap the two `<img>` tags for `next/image`. Each is marked with a comment.
+1. Set `image` on the product.
+2. Swap the two `<img>` tags for `next/image`. Each is marked with a comment.
+
+There is no `images.remotePatterns` step. Under `output: "export"` the loader is
+set to `unoptimized`, so Next never fetches the file server-side and does not
+care which host it came from. The cost is that no resizing or AVIF/WebP
+conversion happens — serve photos at the size they are displayed, or accept the
+bytes. A custom loader that rewrites to a resizing service is the escape hatch if
+that becomes a problem.
 
 Products without a photo keep their illustration, so this can happen one product
 at a time.
@@ -152,6 +159,10 @@ components/
   ui/                       Button, Chip, Eyebrow, Scrim, icons
   <section>.tsx             one file per page section
 content/                    all copy and catalog data
+public/
+  .htaccess                 copied into out/, Apache config for Hostinger
+scripts/
+  serve.mjs                 preview server for the export (pnpm preview)
 lib/
   content.ts                the seam
   sources/file.ts           reads /content, the only fs access in the app
@@ -173,8 +184,44 @@ islands: the cart, drawers, filters, kit builder and beam dial.
 
 ## Deploying
 
-Vercel. The build is fully static today, so it needs no environment variables
-until Payload arrives.
+Hostinger, as plain static files. `output: "export"` in `next.config.ts` makes
+`pnpm build` write a self-contained site into `out/`. Upload the **contents** of
+that folder into `public_html/`:
+
+```bash
+pnpm build
+# then upload everything inside out/ (FTP, SFTP, or hPanel File Manager)
+```
+
+Roughly 3 MB across ~125 files, so any upload method works. There are no
+environment variables, no database and no Node process on the server.
+
+Two settings in `next.config.ts` exist specifically for shared hosting:
+
+- **`trailingSlash: true`** writes `products/blaze-vest/index.html` instead of
+  `products/blaze-vest.html`. Apache and LiteSpeed do not map the extensionless
+  `/products/blaze-vest` onto the `.html` file, so without this every product URL
+  404s unless you hand-write rewrite rules. With it, the host's own
+  directory-index handling serves the page. Product URLs end in a slash.
+- **`images.unoptimized: true`** is required by `output: "export"`, which has no
+  server to resize images on demand.
+
+`public/.htaccess` is copied into `out/` by the build, so host config is
+version-controlled rather than hand-edited on the server. It sets the styled 404
+(`404.html`), compression, long cache lifetimes for the fingerprinted
+`_next/static` assets, no-cache for HTML, and a few security headers. The HTTPS
+redirect at the bottom is commented out — enable it only after the SSL
+certificate is issued, or it redirect-loops a domain with no working TLS.
+
+`.htaccess` does not apply to `pnpm preview`, which is a plain Node server. Cache
+and compression behaviour only exists on the live host; check it there.
+
+### What Hostinger cannot host
+
+The static site, yes. Payload CMS, no. Payload needs a persistent Node process
+and does not speak MySQL, so shared hosting cannot run it. Deploying the CMS
+means a second host for the admin app; the storefront keeps exporting to
+Hostinger and points at it over HTTP through `lib/sources/payload.ts`.
 
 `agentRules: false` in `next.config.ts` stops Next.js writing `AGENTS.md` and
 `CLAUDE.md` into the repo root on every dev run.
