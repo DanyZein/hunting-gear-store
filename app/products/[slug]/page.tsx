@@ -55,7 +55,10 @@ export default async function ProductPage({ params }: PageProps) {
             Home
           </Link>
           <span className="mx-2">/</span>
-          <Link href="/#catalog" className="transition-colors hover:text-fg">
+          <Link
+            href={`/shop/?group=${product.group}`}
+            className="transition-colors hover:text-fg"
+          >
             {product.category}
           </Link>
           <span className="mx-2">/</span>
@@ -185,8 +188,10 @@ export default async function ProductPage({ params }: PageProps) {
           <section className="mt-[clamp(52px,7vw,100px)]">
             <Eyebrow>More in {product.category}</Eyebrow>
             <div className="mt-6 grid grid-cols-1 gap-[clamp(14px,1.8vw,22px)] min-[520px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {/* h2: the product name above is the page's only h1, so the card
+                  titles sit one level below it rather than skipping to h3. */}
               {related.map((entry) => (
-                <ProductCard key={entry.id} product={entry} />
+                <ProductCard key={entry.id} product={entry} headingLevel="h2" />
               ))}
             </div>
           </section>

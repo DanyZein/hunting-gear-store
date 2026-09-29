@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
 import { useFilters } from "@/components/store/FilterProvider";
@@ -21,7 +22,8 @@ const iconButton =
 
 export function Header({ settings }: { settings: Settings }) {
   const { count, openDrawer } = useStore();
-  const { query, setQuery, setGroup } = useFilters();
+  const { query, setQuery, commitQuery } = useFilters();
+  const pathname = usePathname();
   const [searchOpen, setSearchOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -81,11 +83,14 @@ export function Header({ settings }: { settings: Settings }) {
                       <p className="mb-2.5 font-mono text-[0.6rem] tracking-[0.2em] uppercase text-blaze">
                         {column.title}
                       </p>
+                      {/* No onClick setting the group. The href already carries
+                          ?group= and the provider reads the URL, so a second
+                          writer here would fight the URL and only work for
+                          plain left-clicks. */}
                       {column.links.map((link) => (
                         <Link
                           key={link.label}
                           href={link.href}
-                          onClick={() => link.group && setGroup(link.group)}
                           className="block py-1 text-[0.94rem] text-chrome-fg-2 transition-colors hover:text-chrome-fg"
                         >
                           {link.label}
@@ -151,19 +156,35 @@ export function Header({ settings }: { settings: Settings }) {
 
       {searchOpen && (
         <div className="border-t border-chrome-line bg-chrome">
-          <div className="mx-auto flex w-full max-w-[1300px] items-center gap-3 px-[var(--gut)] py-3.5">
+          {/* A real form, not a div. Before the site had routes this called
+              getElementById("catalog").scrollIntoView(), which silently did
+              nothing on any page that was not the one holding the catalog.
+              A GET form works without JavaScript and puts the query in the URL,
+              so a result is shareable. */}
+          <form
+            action="/shop/"
+            method="get"
+            onSubmit={(event) => {
+              // On /shop the grid has already been filtering as you typed, so
+              // letting the GET run would reload the page to show the same
+              // result. Commit the query to the address bar instead, which is
+              // what makes the search shareable. Anywhere else there is no grid
+              // to update, so fall through and let the form navigate.
+              if (pathname !== "/shop/") return;
+              event.preventDefault();
+              commitQuery();
+            }}
+            className="mx-auto flex w-full max-w-[1300px] items-center gap-3 px-[var(--gut)] py-3.5"
+          >
             <SearchIcon className="size-[18px] flex-none text-chrome-fg-2" />
             <input
               ref={inputRef}
               type="search"
+              name="q"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               onKeyDown={(event) => {
                 if (event.key === "Escape") toggleSearch();
-                if (event.key === "Enter") {
-                  event.preventDefault();
-                  document.getElementById("catalog")?.scrollIntoView({ block: "start" });
-                }
               }}
               placeholder="Search jackets, boots, lumens…"
               aria-label="Search the catalog"
@@ -173,7 +194,7 @@ export function Header({ settings }: { settings: Settings }) {
             <button type="button" onClick={toggleSearch} aria-label="Close search" className={iconButton}>
               <CloseIcon className="size-[17px]" />
             </button>
-          </div>
+          </form>
         </div>
       )}
     </header>

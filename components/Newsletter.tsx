@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
-import type { HomeContent } from "@/lib/types";
+import type { Pages } from "@/lib/types";
 
 /**
  * The signup form.
@@ -14,7 +14,7 @@ import type { HomeContent } from "@/lib/types";
  * rather than showing a fake "you're subscribed" confirmation. Wire this to
  * Payload's form collection or an email provider when one exists.
  */
-export function Newsletter({ content }: { content: HomeContent["newsletter"] }) {
+export function Newsletter({ content }: { content: Pages["home"]["newsletter"] }) {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState<{ text: string; ok: boolean } | null>(null);
 

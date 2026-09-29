@@ -1,48 +1,79 @@
-import { Catalog } from "@/components/Catalog";
-import { FieldNotes } from "@/components/FieldNotes";
-import { GroundPicker } from "@/components/GroundPicker";
 import { Hero } from "@/components/Hero";
-import { KitBuilder } from "@/components/KitBuilder";
-import { LightingRig } from "@/components/LightingRig";
 import { Newsletter } from "@/components/Newsletter";
-import { Reports } from "@/components/Reports";
+import { ProductCard } from "@/components/ProductCard";
+import { Teaser } from "@/components/Teaser";
 import { TrustStrip } from "@/components/TrustStrip";
-import { getHomePage, getProducts, getReports, getSettings, getTaxonomy } from "@/lib/content";
+import { ButtonLink } from "@/components/ui/Button";
+import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionHeading } from "@/components/ui/SectionHeading";
+import { getPages, getProducts, getSettings } from "@/lib/content";
 
+/**
+ * The landing page.
+ *
+ * This used to be the whole site: nine sections stacked, ~15,000px on a phone.
+ * Each section now has its own route and appears here only as a teaser, so the
+ * home page is a front door rather than the destination. It holds no markup of
+ * its own beyond the two bands that only make sense here — the featured row and
+ * the teaser grid.
+ */
 export default async function HomePage() {
-  const [home, products, taxonomy, reports, settings] = await Promise.all([
-    getHomePage(),
+  const [pages, products, settings] = await Promise.all([
+    getPages(),
     getProducts(),
-    getTaxonomy(),
-    getReports(),
     getSettings(),
   ]);
 
-  const lightingProduct = products.find((product) => product.id === home.lighting.productId);
-  if (!lightingProduct) {
-    // A content mistake, not a runtime one. Fail the build with the file and the
-    // id named, rather than rendering a section with a hole in it.
-    throw new Error(
-      `content/pages.json -> home.lighting.productId is "${home.lighting.productId}", ` +
-        `but no product with that id exists in content/products.json.`,
-    );
-  }
+  const { hero, featured, explore, newsletter } = pages.home;
+
+  // Order is whatever `content/products.json` says, so which four lead the page
+  // stays an editorial decision rather than a derived one.
+  const picks = products.slice(0, 4);
 
   return (
     <>
-      <Hero content={home} settings={settings} />
+      <Hero hero={hero} settings={settings} />
       <TrustStrip settings={settings} />
-      <GroundPicker content={home.grounds} products={products} />
-      <KitBuilder
-        products={products.filter((product) => product.layer)}
-        layers={taxonomy.layers}
-        content={home.system}
-      />
-      <Catalog products={products} content={home.catalog} />
-      <LightingRig content={home.lighting} product={lightingProduct} />
-      <FieldNotes content={home.notes} />
-      <Reports content={home.reports} reports={reports} />
-      <Newsletter content={home.newsletter} />
+
+      <section className="py-[clamp(52px,7vw,100px)]">
+        <div className="mx-auto w-full max-w-[1300px] px-[var(--gut)]">
+          <div className="flex flex-wrap items-end justify-between gap-5">
+            <div>
+              <Eyebrow>{featured.eyebrow}</Eyebrow>
+              <SectionHeading className="mt-2.5">{featured.headline}</SectionHeading>
+            </div>
+            <ButtonLink href={featured.cta.href} variant="line" size="sm">
+              {featured.cta.label}
+            </ButtonLink>
+          </div>
+
+          <div className="mt-7 grid grid-cols-1 gap-[clamp(14px,1.8vw,22px)] min-[520px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {picks.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-line bg-surface-2 py-[clamp(52px,7vw,100px)]">
+        <div className="mx-auto w-full max-w-[1300px] px-[var(--gut)]">
+          <Eyebrow>{explore.eyebrow}</Eyebrow>
+          <SectionHeading className="mt-2.5">{explore.headline}</SectionHeading>
+
+          <div className="mt-7 grid grid-cols-1 gap-[clamp(14px,1.8vw,22px)] min-[640px]:grid-cols-2 lg:grid-cols-3">
+            {explore.items.map((item) => (
+              <Teaser
+                key={item.href}
+                eyebrow={item.eyebrow}
+                teaser={item.teaser}
+                href={item.href}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Newsletter content={newsletter} />
     </>
   );
 }

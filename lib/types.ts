@@ -163,7 +163,20 @@ export interface Settings {
   footer: FooterColumn[];
 }
 
-export interface HomeContent {
+/** The mono label, the headline, and usually a paragraph under it. */
+export interface SectionIntro {
+  eyebrow: string;
+  headline: string;
+  body: string;
+}
+
+/**
+ * The landing page.
+ *
+ * This is a front door, not the site. Each section it used to hold lives on its
+ * own route now, and appears here only as a teaser.
+ */
+export interface HomePage {
   hero: {
     eyebrow: string;
     headline: string;
@@ -171,28 +184,61 @@ export interface HomeContent {
     primaryCta: { label: string; href: string };
     secondaryCta: { label: string; href: string };
   };
-  grounds: { eyebrow: string; headline: string; body: string };
-  system: { eyebrow: string; headline: string; body: string; note: string };
-  catalog: { eyebrow: string; headline: string };
-  lighting: {
+  /**
+   * The heading over the four-card row on the landing page. The cards
+   * themselves are the first four products in `content/products.json`, so their
+   * order stays an editorial decision made in that file.
+   */
+  featured: { eyebrow: string; headline: string; cta: { label: string; href: string } };
+  /**
+   * The grid that replaced the section stack: one card per section page.
+   *
+   * `teaser` is deliberately NOT the target page's headline. That headline is
+   * rendered as the target's `<h1>` and as its `<title>`, so reusing it here
+   * would put identical text on two indexed pages. Write a different line.
+   */
+  explore: {
     eyebrow: string;
     headline: string;
-    body: string;
-    /** Headlamp the beam rig demonstrates. Drives the "add" button. */
-    productId: string;
-    /**
-     * The three numbers the dial moves between. Runtime runs the other way from
-     * output, and that inverse relationship is why the dial exists.
-     */
-    dial: {
-      minLumens: number;
-      maxLumens: number;
-      reachAtMinYd: number;
-      reachAtMaxYd: number;
-      runtimeAtMinHr: number;
-      runtimeAtMaxHr: number;
-    };
+    items: { eyebrow: string; teaser: string; href: string }[];
   };
+  newsletter: { headline: string; body: string; note: string };
+}
+
+/** `/shop` — the terrain picker and the grid share this route on purpose. */
+export interface ShopPage {
+  grounds: SectionIntro;
+  catalog: { eyebrow: string; headline: string };
+}
+
+/** `/layering` */
+export interface LayeringPage {
+  system: SectionIntro & { note: string };
+}
+
+/** `/lighting` */
+export interface LightingPage {
+  eyebrow: string;
+  headline: string;
+  body: string;
+  /** Headlamp the beam rig demonstrates. Drives the "add" button. */
+  productId: string;
+  /**
+   * The three numbers the dial moves between. Runtime runs the other way from
+   * output, and that inverse relationship is why the dial exists.
+   */
+  dial: {
+    minLumens: number;
+    maxLumens: number;
+    reachAtMinYd: number;
+    reachAtMaxYd: number;
+    runtimeAtMinHr: number;
+    runtimeAtMaxHr: number;
+  };
+}
+
+/** `/field-notes` */
+export interface FieldNotesPage {
   notes: {
     eyebrow: string;
     headline: string;
@@ -201,8 +247,27 @@ export interface HomeContent {
     signature: { name: string; role: string };
     plate: { art: ArtKey; caption: string; place: string };
   };
+}
+
+/** `/reports` */
+export interface ReportsPage {
   reports: { eyebrow: string; headline: string };
-  newsletter: { headline: string; body: string; note: string };
+}
+
+/**
+ * All page copy, keyed by route.
+ *
+ * One key per route rather than one blob for the whole site. That is what the
+ * Payload migration wants: an editor should be editing "the shop page" as its
+ * own document, not a section of a monolith.
+ */
+export interface Pages {
+  home: HomePage;
+  shop: ShopPage;
+  layering: LayeringPage;
+  lighting: LightingPage;
+  fieldNotes: FieldNotesPage;
+  reports: ReportsPage;
 }
 
 /**
@@ -215,5 +280,5 @@ export interface ContentSource {
   getProducts(): Promise<Product[]>;
   getProduct(slug: string): Promise<Product | null>;
   getReports(): Promise<Report[]>;
-  getHomePage(): Promise<HomeContent>;
+  getPages(): Promise<Pages>;
 }

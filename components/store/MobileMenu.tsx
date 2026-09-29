@@ -10,13 +10,17 @@ import { cn } from "@/lib/cn";
 import type { Settings } from "@/lib/types";
 
 /**
- * The below-lg menu. It carries the same ground filters as the picker on the
- * home page, because the ground is the first thing a hunter narrows by and
+ * The below-lg menu. It carries the same ground filters as the picker on
+ * `/shop`, because the ground is the first thing a hunter narrows by and
  * burying it in a menu on a phone would be backwards.
+ *
+ * The Help column below duplicates the footer's, hand-written rather than read
+ * from `content/settings.json`. Editing that file will not update these; they
+ * have to be changed here too.
  */
 export function MobileMenu({ settings }: { settings: Settings }) {
   const { drawer, closeDrawer } = useStore();
-  const { grounds, setGround, setGroup } = useFilters();
+  const { grounds } = useFilters();
   const open = drawer === "menu";
 
   return (
@@ -63,17 +67,15 @@ export function MobileMenu({ settings }: { settings: Settings }) {
             Ground
           </p>
           <div className="flex flex-col gap-0.5">
+            {/* The href carries the filter and the provider reads it from the
+                URL, so these no longer write state on click. */}
             {grounds
               .filter((ground) => ground.id !== "all")
               .map((ground) => (
                 <Link
                   key={ground.id}
-                  href="/#catalog"
-                  onClick={() => {
-                    setGround(ground.id);
-                    setGroup("all");
-                    closeDrawer();
-                  }}
+                  href={`/shop/?ground=${ground.id}`}
+                  onClick={closeDrawer}
                   className="py-1.5 text-[0.95rem] text-fg-2 transition-colors hover:text-fg"
                 >
                   {ground.name}
@@ -85,16 +87,16 @@ export function MobileMenu({ settings }: { settings: Settings }) {
             Help
           </p>
           <div className="flex flex-col gap-0.5">
-            <Link href="/#system" onClick={closeDrawer} className="py-1.5 text-[0.95rem] text-fg-2 hover:text-fg">
+            <Link href="/layering/" onClick={closeDrawer} className="py-1.5 text-[0.95rem] text-fg-2 hover:text-fg">
               Sizing &amp; layering
             </Link>
-            <Link href="/#lighting" onClick={closeDrawer} className="py-1.5 text-[0.95rem] text-fg-2 hover:text-fg">
+            <Link href="/lighting/" onClick={closeDrawer} className="py-1.5 text-[0.95rem] text-fg-2 hover:text-fg">
               Beam guide
             </Link>
-            <Link href="/#notes" onClick={closeDrawer} className="py-1.5 text-[0.95rem] text-fg-2 hover:text-fg">
+            <Link href="/field-notes/" onClick={closeDrawer} className="py-1.5 text-[0.95rem] text-fg-2 hover:text-fg">
               Repairs
             </Link>
-            <Link href="/#notes" onClick={closeDrawer} className="py-1.5 text-[0.95rem] text-fg-2 hover:text-fg">
+            <Link href="/field-notes/" onClick={closeDrawer} className="py-1.5 text-[0.95rem] text-fg-2 hover:text-fg">
               Shipping &amp; returns
             </Link>
           </div>

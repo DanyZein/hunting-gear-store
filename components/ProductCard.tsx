@@ -16,9 +16,21 @@ import type { Product } from "@/lib/types";
  * mono, same three cells on every card so a row reads as a comparison table
  * rather than a row of advertisements.
  */
-export function ProductCard({ product }: { product: Product }) {
+export function ProductCard({
+  product,
+  headingLevel = "h3",
+}: {
+  product: Product;
+  /**
+   * `h2` when the grid sits directly under a page `<h1>` — without it the
+   * outline jumps h1 → h3, which axe's heading-order rule flags. Defaults to
+   * `h3` for a grid nested under its own section heading.
+   */
+  headingLevel?: "h2" | "h3";
+}) {
   const { add } = useStore();
   const badgeIsBlaze = product.badge === "Field pick" || product.badge === "New";
+  const Heading = headingLevel;
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-[3px] border border-line bg-surface transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-moss-2 hover:shadow-[0_1px_2px_rgba(12,16,12,0.05),0_12px_34px_-16px_rgba(12,16,12,0.28)]">
@@ -56,11 +68,11 @@ export function ProductCard({ product }: { product: Product }) {
         <p className="font-mono text-[0.58rem] tracking-[0.16em] uppercase text-fg-3">
           {product.category}
         </p>
-        <h3 className="mt-1.5 min-h-[2.24em] font-display text-[1.1rem] font-semibold leading-[1.12] tracking-[0.02em] uppercase">
+        <Heading className="mt-1.5 min-h-[2.24em] font-display text-[1.1rem] font-semibold leading-[1.12] tracking-[0.02em] uppercase">
           <Link href={`/products/${product.id}`} className="transition-colors hover:text-blaze">
             {product.name}
           </Link>
-        </h3>
+        </Heading>
 
         <div className="mt-auto flex items-baseline justify-between gap-2.5 pt-2.5">
           <span className="font-mono text-[1.02rem] font-medium tabular-nums">

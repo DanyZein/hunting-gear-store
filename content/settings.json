@@ -20,37 +20,37 @@
   "nav": [
     {
       "label": "Shop",
-      "href": "/#catalog",
+      "href": "/shop/",
       "columns": [
         {
           "title": "Apparel",
           "links": [
-            { "label": "Outerwear", "href": "/#catalog", "group": "apparel" },
-            { "label": "Mid layers", "href": "/#catalog", "group": "apparel" },
-            { "label": "Base layers", "href": "/#catalog", "group": "apparel" }
+            { "label": "Outerwear", "href": "/shop/?group=apparel", "group": "apparel" },
+            { "label": "Mid layers", "href": "/shop/?group=apparel", "group": "apparel" },
+            { "label": "Base layers", "href": "/shop/?group=apparel", "group": "apparel" }
           ]
         },
         {
           "title": "Boots & carry",
           "links": [
-            { "label": "Boots", "href": "/#catalog", "group": "footwear" },
-            { "label": "Packs", "href": "/#catalog", "group": "packs" },
-            { "label": "Everything", "href": "/#catalog" }
+            { "label": "Boots", "href": "/shop/?group=footwear", "group": "footwear" },
+            { "label": "Packs", "href": "/shop/?group=packs", "group": "packs" },
+            { "label": "Everything", "href": "/shop/" }
           ]
         },
         {
           "title": "Lighting",
           "links": [
-            { "label": "Headlamps", "href": "/#catalog", "group": "lighting" },
-            { "label": "Handheld", "href": "/#catalog", "group": "lighting" },
-            { "label": "Beam demo", "href": "/#lighting" }
+            { "label": "Headlamps", "href": "/shop/?group=lighting", "group": "lighting" },
+            { "label": "Handheld", "href": "/shop/?group=lighting", "group": "lighting" },
+            { "label": "Beam demo", "href": "/lighting/" }
           ]
         }
       ]
     },
-    { "label": "Layering", "href": "/#system" },
-    { "label": "Lighting", "href": "/#lighting" },
-    { "label": "Field notes", "href": "/#notes" }
+    { "label": "Layering", "href": "/layering/" },
+    { "label": "Lighting", "href": "/lighting/" },
+    { "label": "Field notes", "href": "/field-notes/" }
   ],
   "announcements": [
     "Free freight on orders over $150",
@@ -85,28 +85,28 @@
     {
       "title": "Shop",
       "links": [
-        { "label": "Outerwear", "href": "/#catalog" },
-        { "label": "Base & mid layers", "href": "/#catalog" },
-        { "label": "Boots", "href": "/#catalog" },
-        { "label": "Packs", "href": "/#catalog" },
-        { "label": "Lighting", "href": "/#catalog" }
+        { "label": "Outerwear", "href": "/shop/?group=apparel" },
+        { "label": "Base & mid layers", "href": "/shop/?group=apparel" },
+        { "label": "Boots", "href": "/shop/?group=footwear" },
+        { "label": "Packs", "href": "/shop/?group=packs" },
+        { "label": "Lighting", "href": "/shop/?group=lighting" }
       ]
     },
     {
       "title": "Help",
       "links": [
-        { "label": "Sizing & layering", "href": "/#system" },
-        { "label": "Beam guide", "href": "/#lighting" },
-        { "label": "Repairs", "href": "/#notes" },
-        { "label": "Shipping & returns", "href": "/#notes" }
+        { "label": "Sizing & layering", "href": "/layering/" },
+        { "label": "Beam guide", "href": "/lighting/" },
+        { "label": "Repairs", "href": "/field-notes/" },
+        { "label": "Shipping & returns", "href": "/field-notes/" }
       ]
     },
     {
       "title": "Field",
       "links": [
-        { "label": "Field notes", "href": "/#notes" },
-        { "label": "Our ground", "href": "/#notes" },
-        { "label": "Conservation partners", "href": "/#notes" }
+        { "label": "Field notes", "href": "/field-notes/" },
+        { "label": "Our ground", "href": "/shop/" },
+        { "label": "Conservation partners", "href": "/field-notes/" }
       ]
     }
   ]

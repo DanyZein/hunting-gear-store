@@ -4,38 +4,89 @@
       "eyebrow": "Field catalog, Season 2026",
       "headline": "Gear for the cold end of the season",
       "body": "Layering systems, boots, packs and lights for hunters who are still in the timber when the temperature drops and the light runs out. Every piece spends a full season in the field before it earns a place on this page.",
-      "primaryCta": { "label": "Build a layering kit", "href": "#system" },
-      "secondaryCta": { "label": "Shop the catalog", "href": "#catalog" }
+      "primaryCta": { "label": "Build a layering kit", "href": "/layering/" },
+      "secondaryCta": { "label": "Shop the catalog", "href": "/shop/" }
     },
+    "featured": {
+      "eyebrow": "In the field now",
+      "headline": "Four pieces we reach for",
+      "cta": { "label": "See all twelve", "href": "/shop/" }
+    },
+    "explore": {
+      "eyebrow": "The rest of the site",
+      "headline": "Five places to go next",
+      "items": [
+        {
+          "eyebrow": "Shop",
+          "teaser": "Twelve pieces for the cold end of the season, narrowed by the ground you hunt.",
+          "href": "/shop/"
+        },
+        {
+          "eyebrow": "Layering",
+          "teaser": "Hunters buy a system, not a jacket. Build yours in three picks.",
+          "href": "/layering/"
+        },
+        {
+          "eyebrow": "Lighting",
+          "teaser": "Drag the dial and watch the beam reach the treeline.",
+          "href": "/lighting/"
+        },
+        {
+          "eyebrow": "Field notes",
+          "teaser": "What went wrong on the first run, and what it cost to fix.",
+          "href": "/field-notes/"
+        },
+        {
+          "eyebrow": "Field reports",
+          "teaser": "Reviews from people who sat in the cold and said so.",
+          "href": "/reports/"
+        }
+      ]
+    },
+    "newsletter": {
+      "headline": "One email a month",
+      "body": "Field notes, restock alerts and the season calendar. Nothing else, and no more than that.",
+      "note": "The address is validated in the browser and not sent anywhere."
+    }
+  },
+
+  "shop": {
     "grounds": {
-      "eyebrow": "Step 1: your ground",
+      "eyebrow": "Your ground",
       "headline": "Where are you hunting?",
       "body": "Timber, prairie and marsh ask for different gear. Pick where you'll spend your season and the catalog narrows to what actually works there."
     },
+    "catalog": {
+      "eyebrow": "The catalog",
+      "headline": "Season 2026"
+    }
+  },
+
+  "layering": {
     "system": {
-      "eyebrow": "Step 2: the layering system",
+      "eyebrow": "The layering system",
       "headline": "Three layers, one kit",
       "body": "Nobody buys a jacket on its own. Pick one piece from each layer and we price the three together.",
       "note": "Ships as three pieces, one box. Sizes set at checkout."
-    },
-    "catalog": {
-      "eyebrow": "Step 3: the catalog",
-      "headline": "Season 2026"
-    },
-    "lighting": {
-      "eyebrow": "Lighting",
-      "headline": "Output you can dial",
-      "body": "A 1400-lumen scan drains the cell in four hours. A 200-lumen walk-out runs all night. The Nightfall does both, so you set the beam for the timber you're standing in. Drag the dial.",
-      "productId": "nightfall-1400",
-      "dial": {
-        "minLumens": 200,
-        "maxLumens": 1400,
-        "reachAtMinYd": 110,
-        "reachAtMaxYd": 210,
-        "runtimeAtMinHr": 36,
-        "runtimeAtMaxHr": 4
-      }
-    },
+    }
+  },
+
+  "lighting": {
+    "eyebrow": "Lighting",
+    "headline": "Output you can dial",
+    "body": "A 1400-lumen scan drains the cell in four hours. A 200-lumen walk-out runs all night. The Nightfall does both, so you set the beam for the timber you're standing in. Drag the dial.",
+    "productId": "nightfall-1400",
+    "dial": {
+      "minLumens": 200,
+      "maxLumens": 1400,
+      "reachAtMinYd": 110,
+      "reachAtMaxYd": 210,
+      "runtimeAtMinHr": 36,
+      "runtimeAtMaxHr": 4
+    }
+  },
+
+  "fieldNotes": {
     "notes": {
       "eyebrow": "Field notes",
       "headline": "Eleven jackets and one bad shoulder seam",
@@ -62,15 +113,13 @@
         "caption": "Plate 04, pattern room",
         "place": "Bozeman, MT"
       }
-    },
+    }
+  },
+
+  "reports": {
     "reports": {
       "eyebrow": "Field reports",
       "headline": "Sent in from the season"
-    },
-    "newsletter": {
-      "headline": "One email a month",
-      "body": "Field notes, restock alerts and the season calendar. Nothing else, and no more than that.",
-      "note": "The address is validated in the browser and not sent anywhere."
     }
   }
 }

@@ -5,8 +5,9 @@ import { useState } from "react";
 import { useStore } from "@/components/store/StoreProvider";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { money } from "@/lib/format";
-import type { HomeContent, Product } from "@/lib/types";
+import type { Pages, Product } from "@/lib/types";
 
 /**
  * The beam rig.
@@ -40,9 +41,11 @@ const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(mi
 export function LightingRig({
   content,
   product,
+  headingLevel = "h2",
 }: {
-  content: HomeContent["lighting"];
+  content: Pages["lighting"];
   product: Product;
+  headingLevel?: "h1" | "h2";
 }) {
   const { add } = useStore();
   const [dial, setDial] = useState(100);
@@ -66,9 +69,9 @@ export function LightingRig({
     <section id="lighting" className="border-t border-chrome-line bg-ink py-[clamp(52px,7vw,100px)] text-chrome-fg">
       <div className="mx-auto w-full max-w-[1300px] px-[var(--gut)]">
         <Eyebrow tone="chrome">{content.eyebrow}</Eyebrow>
-        <h2 className="mt-2.5 font-display text-[clamp(1.9rem,4.4vw,3.2rem)] font-bold uppercase leading-[0.96] tracking-[-0.014em]">
+        <SectionHeading level={headingLevel} className="mt-2.5">
           {content.headline}
-        </h2>
+        </SectionHeading>
         <p className="mt-3.5 max-w-[56ch] text-[1.02rem] leading-[1.62] text-chrome-fg-2">
           {content.body}
         </p>
@@ -198,7 +201,7 @@ export function LightingRig({
           >
             Add the {product.name} for {money(product.price)}
           </Button>
-          <ButtonLink href="/#catalog" variant="ghost">
+          <ButtonLink href="/shop/?group=lighting" variant="ghost">
             All lighting
           </ButtonLink>
         </div>

@@ -5,10 +5,11 @@ import { useMemo, useState } from "react";
 import { useStore } from "@/components/store/StoreProvider";
 import { Button } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProductArt } from "@/lib/art";
 import { cn } from "@/lib/cn";
 import { kitPrice, money } from "@/lib/format";
-import type { HomeContent, Layer, LayerKey, Product } from "@/lib/types";
+import type { Layer, LayerKey, Pages, Product } from "@/lib/types";
 
 /**
  * The layering system.
@@ -21,10 +22,12 @@ export function KitBuilder({
   products,
   layers,
   content,
+  headingLevel = "h2",
 }: {
   products: Product[];
   layers: Layer[];
-  content: HomeContent["system"];
+  content: Pages["layering"]["system"];
+  headingLevel?: "h1" | "h2";
 }) {
   const { addMany } = useStore();
 
@@ -57,9 +60,9 @@ export function KitBuilder({
     <section id="system" className="border-y border-line bg-surface-2 py-[clamp(52px,7vw,100px)]">
       <div className="mx-auto w-full max-w-[1300px] px-[var(--gut)]">
         <Eyebrow>{content.eyebrow}</Eyebrow>
-        <h2 className="mt-2.5 font-display text-[clamp(1.9rem,4.4vw,3.2rem)] font-bold uppercase leading-[0.96] tracking-[-0.014em]">
+        <SectionHeading level={headingLevel} className="mt-2.5">
           {content.headline}
-        </h2>
+        </SectionHeading>
         <p className="mt-3.5 max-w-[56ch] text-[1.02rem] leading-[1.62] text-fg-2">{content.body}</p>
 
         <div className="mt-9 grid gap-10 lg:grid-cols-[minmax(0,1.6fr)_minmax(280px,1fr)] lg:gap-14">
@@ -121,9 +124,12 @@ export function KitBuilder({
           </div>
 
           <div className="rounded-[3px] bg-ink p-6 text-chrome-fg lg:sticky lg:top-[84px] lg:self-start">
-            <h3 className="mb-4.5 font-display text-[1.3rem] font-bold tracking-[0.07em] uppercase">
+            {/* h2, not h3: this panel sits directly under the page's h1, and an
+                h3 there skips a level. The layer labels above are <b>, not
+                headings, so there is nothing between them. */}
+            <h2 className="mb-4.5 font-display text-[1.3rem] font-bold tracking-[0.07em] uppercase">
               Your kit
-            </h3>
+            </h2>
 
             {layers.map((layer) => {
               const product = chosen.find((p) => p.layer === layer.key);

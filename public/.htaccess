@@ -60,7 +60,12 @@ AddDefaultCharset UTF-8
   </FilesMatch>
   # HTML must NOT be cached hard, or a deploy strands visitors on the old build
   # until their cache expires. The files are small; revalidate every time.
-  <FilesMatch "\.html$">
+  #
+  # `.txt` carries the RSC payloads that every client-side navigation fetches
+  # (`index.txt`, `__next._full.txt` and friends). They are not fingerprinted —
+  # the filename is the same across deploys — so caching them for a year would
+  # strand clients on a stale route tree.
+  <FilesMatch "\.(html|txt)$">
     ExpiresDefault "access plus 0 seconds"
   </FilesMatch>
 </IfModule>
@@ -74,7 +79,7 @@ AddDefaultCharset UTF-8
   <FilesMatch "\.(png|jpg|jpeg|gif|webp|avif|svg|ico)$">
     Header set Cache-Control "public, max-age=15552000"
   </FilesMatch>
-  <FilesMatch "\.html$">
+  <FilesMatch "\.(html|txt)$">
     Header set Cache-Control "public, max-age=0, must-revalidate"
   </FilesMatch>
 

@@ -1,14 +1,15 @@
 import { CountdownCells } from "@/components/Countdown";
 import { ButtonLink } from "@/components/ui/Button";
-import type { HomeContent, Settings } from "@/lib/types";
+import type { Pages, Settings } from "@/lib/types";
 
 /**
  * The hero states the thesis: this is a cold-weather hunting catalog, and
  * opening day itself is on the page counting down rather than a stock photo of
  * a mountain.
+ *
+ * Only ever rendered on `/`, where it owns the page's single `<h1>`.
  */
-export function Hero({ content, settings }: { content: HomeContent; settings: Settings }) {
-  const { hero } = content;
+export function Hero({ hero, settings }: { hero: Pages["home"]["hero"]; settings: Settings }) {
   const { season } = settings;
 
   return (

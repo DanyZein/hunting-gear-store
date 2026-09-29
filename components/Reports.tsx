@@ -1,6 +1,7 @@
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StarIcon } from "@/components/ui/icons";
-import type { HomeContent, Report } from "@/lib/types";
+import type { Pages, Report } from "@/lib/types";
 
 /**
  * Field reports.
@@ -11,17 +12,19 @@ import type { HomeContent, Report } from "@/lib/types";
 export function Reports({
   content,
   reports,
+  headingLevel = "h2",
 }: {
-  content: HomeContent["reports"];
+  content: Pages["reports"]["reports"];
   reports: Report[];
+  headingLevel?: "h1" | "h2";
 }) {
   return (
-    <section className="pt-0 pb-[clamp(52px,7vw,100px)]">
+    <section className="py-[clamp(52px,7vw,100px)]">
       <div className="mx-auto w-full max-w-[1300px] px-[var(--gut)]">
         <Eyebrow>{content.eyebrow}</Eyebrow>
-        <h2 className="mt-2.5 font-display text-[clamp(1.9rem,4.4vw,3.2rem)] font-bold uppercase leading-[0.96] tracking-[-0.014em]">
+        <SectionHeading level={headingLevel} className="mt-2.5">
           {content.headline}
-        </h2>
+        </SectionHeading>
 
         <div className="mt-8 grid gap-[clamp(14px,2vw,22px)] lg:grid-cols-3">
           {reports.map((report) => (

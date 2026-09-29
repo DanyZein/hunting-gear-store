@@ -47,8 +47,8 @@ export function getReports() {
   return source.getReports();
 }
 
-export function getHomePage() {
-  return source.getHomePage();
+export function getPages() {
+  return source.getPages();
 }
 
 /**
@@ -67,4 +67,4 @@ export async function getLayeredProducts(): Promise<Product[]> {
   return products.filter((p) => p.layer);
 }
 
-export type { Product, Settings, Taxonomy, Report, HomeContent, GroundId, GroupId, LayerKey, ArtKey } from "./types";
+export type { Product, Settings, Taxonomy, Report, Pages, GroundId, GroupId, LayerKey, ArtKey } from "./types";

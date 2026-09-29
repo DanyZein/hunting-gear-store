@@ -2,23 +2,27 @@
 
 import { matchesFilters, useFilters } from "@/components/store/FilterProvider";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { cn } from "@/lib/cn";
 import { plural } from "@/lib/format";
-import type { HomeContent, Product } from "@/lib/types";
+import type { Pages, Product } from "@/lib/types";
 
 /**
- * Step one of the shop: where are you hunting.
+ * Where are you hunting — the coarse filter at the top of /shop.
  *
- * The catalog sits two sections below, so filtering here would be invisible
- * feedback on its own. The live match count and the jump link exist so picking
- * a ground does something you can see from where you are standing.
+ * Sits directly above the grid on the same route, so picking a ground
+ * re-filters the products below it. That live handoff is the whole reason this
+ * stayed on the same page as Catalog when the site split into routes.
  */
 export function GroundPicker({
   content,
   products,
+  headingLevel = "h2",
 }: {
-  content: HomeContent["grounds"];
+  content: Pages["shop"]["grounds"];
   products: Product[];
+  /** Stays `h2`: "Where are you hunting?" is a question, not a page title. */
+  headingLevel?: "h1" | "h2";
 }) {
   const { ground, grounds, setGround, setGroup, query, group } = useFilters();
 
@@ -27,12 +31,15 @@ export function GroundPicker({
   ).length;
 
   return (
-    <section className="py-[clamp(52px,7vw,100px)]">
+    // pb-0: this now sits directly above the grid it filters rather than
+    // mid-scroll, so the two should read as one block. The catalog below brings
+    // its own top padding.
+    <section className="pt-[clamp(52px,7vw,100px)] pb-0">
       <div className="mx-auto w-full max-w-[1300px] px-[var(--gut)]">
         <Eyebrow>{content.eyebrow}</Eyebrow>
-        <h2 className="mt-2.5 max-w-[20ch] font-display text-[clamp(1.9rem,4.4vw,3.2rem)] font-bold uppercase leading-[0.96] tracking-[-0.014em] text-balance">
+        <SectionHeading level={headingLevel} className="mt-2.5 max-w-[20ch] text-balance">
           {content.headline}
-        </h2>
+        </SectionHeading>
         <p className="mt-3.5 max-w-[56ch] text-[1.02rem] leading-[1.62] text-fg-2">{content.body}</p>
 
         <div

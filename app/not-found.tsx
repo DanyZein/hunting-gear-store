@@ -14,7 +14,7 @@ export default function NotFound() {
           typo in it.
         </p>
         <div className="mt-7 flex flex-wrap gap-3">
-          <ButtonLink href="/#catalog" variant="solid">
+          <ButtonLink href="/shop/" variant="solid">
             Back to the catalog
           </ButtonLink>
           <ButtonLink href="/" variant="line">

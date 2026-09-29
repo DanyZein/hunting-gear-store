@@ -1,6 +1,7 @@
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ProductArt } from "@/lib/art";
-import type { HomeContent } from "@/lib/types";
+import type { Pages } from "@/lib/types";
 
 /**
  * The founder's letter, set as an annotated field notebook: a mono annotation
@@ -8,7 +9,13 @@ import type { HomeContent } from "@/lib/types";
  * annotations are the point. They date the failures, which is what makes the
  * story worth reading instead of a brand paragraph.
  */
-export function FieldNotes({ content }: { content: HomeContent["notes"] }) {
+export function FieldNotes({
+  content,
+  headingLevel = "h2",
+}: {
+  content: Pages["fieldNotes"]["notes"];
+  headingLevel?: "h1" | "h2";
+}) {
   const { plate } = content;
 
   return (
@@ -27,9 +34,9 @@ export function FieldNotes({ content }: { content: HomeContent["notes"] }) {
 
         <div>
           <Eyebrow>{content.eyebrow}</Eyebrow>
-          <h2 className="mt-2.5 max-w-[18ch] font-display text-[clamp(1.9rem,4.4vw,3.2rem)] font-bold uppercase leading-[0.96] tracking-[-0.014em] text-balance">
+          <SectionHeading level={headingLevel} className="mt-2.5 max-w-[18ch] text-balance">
             {content.headline}
-          </h2>
+          </SectionHeading>
 
           <div className="mt-6">
             {content.entries.map((entry) => (

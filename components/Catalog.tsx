@@ -4,11 +4,12 @@ import { ProductCard } from "@/components/ProductCard";
 import { matchesFilters, useFilters } from "@/components/store/FilterProvider";
 import { Chip } from "@/components/ui/Chip";
 import { Eyebrow } from "@/components/ui/Eyebrow";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import { plural } from "@/lib/format";
-import type { HomeContent, Product } from "@/lib/types";
+import type { Pages, Product } from "@/lib/types";
 
 /**
- * Step three: the grid.
+ * The grid. Owns the /shop route, so it renders that page's `<h1>`.
  *
  * Filtering happens in the browser over the full list. With twelve products
  * that is instant and needs no round trip. When the catalog grows past a few
@@ -18,9 +19,11 @@ import type { HomeContent, Product } from "@/lib/types";
 export function Catalog({
   products,
   content,
+  headingLevel = "h2",
 }: {
   products: Product[];
-  content: HomeContent["catalog"];
+  content: Pages["shop"]["catalog"];
+  headingLevel?: "h1" | "h2";
 }) {
   const { ground, group, query, groups, setGroup, clear } = useFilters();
 
@@ -36,9 +39,9 @@ export function Catalog({
         <div className="flex flex-wrap items-end justify-between gap-5">
           <div>
             <Eyebrow>{content.eyebrow}</Eyebrow>
-            <h2 className="mt-2.5 font-display text-[clamp(1.9rem,4.4vw,3.2rem)] font-bold uppercase leading-[0.96] tracking-[-0.014em]">
+            <SectionHeading level={headingLevel} className="mt-2.5">
               {content.headline}
-            </h2>
+            </SectionHeading>
           </div>
           <p className="font-mono text-[0.72rem] tracking-[0.12em] uppercase text-fg-3 tabular-nums">
             {visible.length} of {products.length} {plural(products.length, "piece")}
@@ -85,7 +88,11 @@ export function Catalog({
         ) : (
           <div className="mt-7 grid grid-cols-1 gap-[clamp(14px,1.8vw,22px)] min-[520px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {visible.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                headingLevel={headingLevel === "h1" ? "h2" : "h3"}
+              />
             ))}
           </div>
         )}

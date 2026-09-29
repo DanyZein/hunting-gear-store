@@ -12,7 +12,7 @@ import path from "node:path";
 
 import type {
   ContentSource,
-  HomeContent,
+  Pages,
   Product,
   Report,
   Settings,
@@ -71,8 +71,7 @@ export const fileSource: ContentSource = {
     return products.find((p) => p.id === slug) ?? null;
   },
 
-  async getHomePage() {
-    const { home } = await readJson<{ home: HomeContent }>("pages.json");
-    return home;
+  async getPages() {
+    return readJson<Pages>("pages.json");
   },
 };
