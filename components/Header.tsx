@@ -13,8 +13,11 @@ import type { Settings } from "@/lib/types";
 
 const stickyTop = "top-[env(safe-area-inset-top,0px)]";
 
+// 36px below 360px. The wordmark is `flex-none`, so at 320px the row runs out
+// of room and has to give somewhere; 360px is the narrowest width where the
+// full-size controls still fit, and it is a far more common screen than 320.
 const iconButton =
-  "relative grid size-10 place-items-center rounded-[3px] text-chrome-fg transition-colors hover:bg-spruce-2";
+  "relative grid size-9 min-[360px]:size-10 place-items-center rounded-[3px] text-chrome-fg transition-colors hover:bg-spruce-2";
 
 export function Header({ settings }: { settings: Settings }) {
   const { count, openDrawer } = useStore();
@@ -39,7 +42,7 @@ export function Header({ settings }: { settings: Settings }) {
         "sticky z-60 border-b border-chrome-line bg-chrome text-chrome-fg",
       )}
     >
-      <div className="mx-auto flex min-h-[66px] w-full max-w-[1300px] items-center gap-6 px-[var(--gut)] lg:gap-8">
+      <div className="mx-auto flex min-h-[66px] w-full max-w-[1300px] items-center gap-3 px-[var(--gut)] min-[360px]:gap-6 lg:gap-8">
         <Link href="/" className="flex flex-none items-center gap-2.5" aria-label={`${settings.brand.name}, home`}>
           <BrandMark className="size-6.5 text-blaze" />
           <span>
@@ -105,7 +108,11 @@ export function Header({ settings }: { settings: Settings }) {
         </nav>
 
         <div className="ml-auto flex items-center gap-1.5">
-          <ThemeToggle />
+          {/* Dropped under 360px to buy the row 46px. Least costly thing to
+              lose: the site already follows `prefers-color-scheme` when no
+              explicit choice is stored, so a small-screen visitor still gets
+              their system theme, just not the override. */}
+          <ThemeToggle className="max-[360px]:hidden" />
 
           <button
             type="button"

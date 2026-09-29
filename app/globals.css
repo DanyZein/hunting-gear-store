@@ -48,6 +48,18 @@
 }
 
 :root {
+  /* The page gutter. Every section is `mx-auto max-w-[1300px] px-[var(--gut)]`,
+     21 elements in all.
+
+     This was missing until now, and its absence is invisible on a desktop: the
+     content is capped at 1300px and centred, so on a wide screen the leftover
+     space reads as margin. Below 1300px there is no leftover space, so an
+     undefined `--gut` made `padding-inline: var(--gut)` invalid at
+     computed-value time and the declaration fell back to 0. Every section ran
+     edge to edge on a phone. If this token is ever renamed, rename it in the
+     components too — nothing fails loudly. */
+  --gut: clamp(16px, 4vw, 28px);
+
   --ground: #e7e8e0;
   --surface: #f3f4ee;
   --surface-2: #dde0d4;

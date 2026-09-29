@@ -12,8 +12,24 @@ export type ButtonSize = "md" | "sm";
 
 const base =
   "inline-flex items-center justify-center gap-[0.55em] font-display font-semibold uppercase " +
-  "tracking-[0.06em] rounded-[3px] border border-transparent transition-colors whitespace-nowrap " +
+  "tracking-[0.06em] rounded-[3px] border border-transparent transition-colors " +
   "disabled:opacity-45 disabled:cursor-not-allowed";
+
+/**
+ * Labels are nowrap by default, which is right for the short fixed ones
+ * ("Build a layering kit"). It is wrong for a label built from data, where the
+ * length is not known until runtime — a long product name made the lighting CTA
+ * 351px wide inside a 328px column, which pushed the whole document to 367px and
+ * gave every phone under 367px a horizontal scrollbar.
+ *
+ * This is a prop rather than a `className` override because `cn` does not merge
+ * conflicting utilities, on purpose (see lib/cn.ts). Passing whitespace-normal
+ * through className would put two equal-specificity utilities on one element and
+ * leave the winner to stylesheet order.
+ */
+function whitespace(wrap: boolean): string {
+  return wrap ? "whitespace-normal text-balance" : "whitespace-nowrap";
+}
 
 const variants: Record<ButtonVariant, string> = {
   blaze: "bg-blaze text-[#12160f] border-blaze hover:bg-[#ff7d38] hover:border-[#ff7d38]",
@@ -31,6 +47,8 @@ interface Common {
   variant?: ButtonVariant;
   size?: ButtonSize;
   className?: string;
+  /** Let a long label break onto a second line instead of overflowing. */
+  wrap?: boolean;
   children: ReactNode;
 }
 
@@ -38,11 +56,15 @@ export function Button({
   variant = "blaze",
   size = "md",
   className,
+  wrap = false,
   children,
   ...rest
 }: Common & Omit<ButtonHTMLAttributes<HTMLButtonElement>, "className" | "children">) {
   return (
-    <button className={cn(base, variants[variant], sizes[size], className)} {...rest}>
+    <button
+      className={cn(base, whitespace(wrap), variants[variant], sizes[size], className)}
+      {...rest}
+    >
       {children}
     </button>
   );
@@ -53,10 +75,14 @@ export function ButtonLink({
   variant = "blaze",
   size = "md",
   className,
+  wrap = false,
   children,
 }: Common & { href: string }) {
   return (
-    <Link href={href} className={cn(base, variants[variant], sizes[size], className)}>
+    <Link
+      href={href}
+      className={cn(base, whitespace(wrap), variants[variant], sizes[size], className)}
+    >
       {children}
     </Link>
   );

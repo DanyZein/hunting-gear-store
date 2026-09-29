@@ -185,7 +185,17 @@ export function LightingRig({
         </div>
 
         <div className="mt-8 flex flex-wrap items-center gap-3.5">
-          <Button type="button" variant="blaze" onClick={() => add(product)}>
+          {/* The label carries the product name, so its length is not known at
+              build time. `wrap` lets it break rather than push the document
+              wider than the viewport; full width on phones keeps the two-line
+              break looking deliberate instead of cramped. */}
+          <Button
+            type="button"
+            variant="blaze"
+            wrap
+            onClick={() => add(product)}
+            className="w-full sm:w-auto"
+          >
             Add the {product.name} for {money(product.price)}
           </Button>
           <ButtonLink href="/#catalog" variant="ghost">
