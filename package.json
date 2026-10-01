@@ -2,6 +2,7 @@
   "name": "ninebark-field-supply",
   "version": "0.1.0",
   "private": true,
+  "description": "A hunting apparel and lighting storefront: layering kits, filtering by terrain, and a live headlamp beam demo. Next.js 16 static export, TypeScript, Tailwind v4.",
   "packageManager": "pnpm@12.4.2",
   "scripts": {
     "dev": "next dev",

@@ -28,5 +28,12 @@ yarn-error.log*
 # vercel
 .vercel
 
-#design
+# design previews and scratch work, never published
 /design
+
+# personal notes about this machine, never published
+/README.personal.md
+
+# editor
+/.vscode/
+/.idea/

@@ -68,23 +68,6 @@ pnpm typecheck
 Use pnpm, not npm. Running npm here creates a second lockfile and a duplicated
 `node_modules`.
 
-The pnpm store sits on the same volume as this project:
-
-    <pnpm store path>
-
-Same volume means pnpm hard-links files instead of copying them. A store on a
-different drive falls back to copying and saves nothing.
-
-| | npm | pnpm |
-| --- | --- | --- |
-| Unique bytes in `node_modules` | 373 MB | 0.1 MB |
-| Hard-linked from the store | - | 352 MB across 10,872 files |
-| Reinstall from warm cache | ~1 min | 1.3 s |
-
-`du -sh node_modules` still reports about 375 MB under pnpm. That number is
-misleading, because `du` cannot see that the inodes are shared with the store
-outside the tree. The real cost is the 60 files unique to this project.
-
 ## The content seam
 
 Pages and components never import from `/content`. They call `lib/content.ts`
@@ -229,7 +212,6 @@ lib/
   sources/file.ts           reads /content, the only fs access in the app
   types.ts                  the contract every source satisfies
   art.tsx                   placeholder product illustrations
-design/concept.html         original single-file concept, for reference
 ```
 
 The page tree renders on the server. Client components are the interactive
