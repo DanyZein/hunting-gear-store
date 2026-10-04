@@ -21,11 +21,16 @@ added later without touching the pages.
 | ![A product page](docs/screenshots/product.png)<br>**Product**: specs and the layers it fits, statically generated | ![The cart drawer](docs/screenshots/cart.png)<br>**Cart**: real lines and quantities, in `localStorage` |
 
 <details>
-<summary>Also dark mode, and the phone layout</summary>
+<summary>Dark mode, and the phone layout</summary>
+
+Dark mode swaps the paper the catalog prints on. The header, hero and footer
+stay spruce in both themes, so the landing page is the one screen that looks the
+same either way; the catalog and product pages are where the theme shows.
 
 | | |
 |:--:|:--:|
-| ![The landing page in dark mode](docs/screenshots/dark-home.png) | ![The landing page at phone width](docs/screenshots/mobile-home.png) |
+| ![The catalog in dark mode](docs/screenshots/dark-shop.png)<br>**Catalog**, dark mode | ![A product page in dark mode](docs/screenshots/dark-product.png)<br>**Product**, dark mode |
+| ![The landing page at phone width](docs/screenshots/mobile-home.png)<br>**Home**, phone | ![The shop at phone width](docs/screenshots/mobile-shop.png)<br>**Shop**, phone |
 
 </details>
 
