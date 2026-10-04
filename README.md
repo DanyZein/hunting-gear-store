@@ -1,11 +1,33 @@
 # Ninebark Field Supply
 
-Hunting apparel and lighting storefront. Next.js 16 (App Router), TypeScript,
-Tailwind v4.
+Hunting apparel and lighting storefront: layering kits, a catalog that narrows
+to the ground you hunt, and a headlamp beam you can dial. Next.js 16 (App
+Router), TypeScript, Tailwind v4. The build emits a folder of static files, and
+there is no server in production.
 
 There is no database, no CMS, no checkout and no accounts. Content lives in JSON
 files under `/content`, and every read goes through one module so a CMS can be
 added later without touching the pages.
+
+![The landing page: "Gear for the cold end of the season"](docs/screenshots/home.png)
+
+## Screens
+
+| | |
+|:--:|:--:|
+| ![The shop, at the terrain picker](docs/screenshots/shop-grounds.png)<br>**Shop**: pick your ground and the catalog narrows | ![The catalog grid](docs/screenshots/shop-grid.png)<br>**Catalog**: twelve pieces, filters carried in the URL |
+| ![The kit builder](docs/screenshots/layering.png)<br>**Layering**: one piece per layer, priced as a kit | ![The beam demo](docs/screenshots/lighting.png)<br>**Lighting**: dial the beam and reach and runtime follow |
+| ![The founder's letter](docs/screenshots/field-notes.png)<br>**Field notes**: the founder's letter | ![Field reports](docs/screenshots/reports.png)<br>**Reports**: what came back from the season |
+| ![A product page](docs/screenshots/product.png)<br>**Product**: specs and the layers it fits, statically generated | ![The cart drawer](docs/screenshots/cart.png)<br>**Cart**: real lines and quantities, in `localStorage` |
+
+<details>
+<summary>Also dark mode, and the phone layout</summary>
+
+| | |
+|:--:|:--:|
+| ![The landing page in dark mode](docs/screenshots/dark-home.png) | ![The landing page at phone width](docs/screenshots/mobile-home.png) |
+
+</details>
 
 ## Routes
 
@@ -31,8 +53,8 @@ state that nothing on screen responds to. They stay together.
 
 ### Filters live in the URL
 
-`/shop/?ground=timber&group=apparel&q=boot` — shareable, bookmarkable, survives a
-refresh, and the header mega-menu links land on a filtered grid.
+`/shop/?ground=timber&group=apparel&q=boot` is shareable, bookmarkable and
+survives a refresh. The header mega-menu links land on a filtered grid.
 
 The mechanism in `components/store/FilterProvider.tsx` is split deliberately:
 
@@ -44,15 +66,15 @@ The mechanism in `components/store/FilterProvider.tsx` is split deliberately:
   is progressive enhancement. Wrapping the provider itself would have replaced
   the header, footer and grid with the fallback in the export.
 - **Writing** is `window.history.replaceState`, which Next 16 patches so it
-  updates the address bar *and* keeps `useSearchParams` in sync — no navigation,
-  no fetch, no scroll change. `router.replace` would be a real navigation with a
-  segment-cache miss for every search string it had not seen.
+  updates the address bar *and* keeps `useSearchParams` in sync, with no
+  navigation, no fetch and no scroll change. `router.replace` would be a real
+  navigation with a segment-cache miss for every search string it had not seen.
 
 The query is the one filter that does not write on change: the header calls
 `setQuery` per keystroke and each write would dispatch a router restore. It
 commits on submit.
 
-Unknown values are dropped rather than honoured — `?group=nonsense` renders the
+Unknown values are dropped rather than honoured: `?group=nonsense` renders the
 unfiltered grid, not an empty one.
 
 ## Commands
@@ -79,7 +101,7 @@ app/**  ->  lib/content.ts  ->  lib/sources/file.ts  ->  /content/*.json
                   +->  lib/sources/payload.ts   (later)
 ```
 
-Only the pages import it — every file under `app/` that needs content, plus
+Only the pages import it: every file under `app/` that needs content, plus
 `app/layout.tsx`. Components take content as props and never fetch.
 
 If a component reaches into `products.json` on its own, that component has to be
@@ -152,9 +174,9 @@ back to the SVG illustration. To switch over:
 There is no `images.remotePatterns` step. Under `output: "export"` the loader is
 set to `unoptimized`, so Next never fetches the file server-side and does not
 care which host it came from. The cost is that no resizing or AVIF/WebP
-conversion happens — serve photos at the size they are displayed, or accept the
-bytes. A custom loader that rewrites to a resizing service is the escape hatch if
-that becomes a problem.
+conversion happens, so serve photos at the size they are displayed, or accept
+the bytes. A custom loader that rewrites to a resizing service is the escape
+hatch if that becomes a problem.
 
 Products without a photo keep their illustration, so this can happen one product
 at a time.
@@ -207,11 +229,16 @@ public/
   .htaccess                 copied into out/, Apache config for Hostinger
 scripts/
   serve.mjs                 preview server for the export (pnpm preview)
+docs/
+  screenshots/              the images in this README
 lib/
   content.ts                the seam
   sources/file.ts           reads /content, the only fs access in the app
   types.ts                  the contract every source satisfies
   art.tsx                   placeholder product illustrations
+  theme.ts                  theme key and the pre-paint script
+  format.ts                 money, plural, the kit discount
+  cn.ts                     class-name join; no tailwind-merge, on purpose
 ```
 
 The page tree renders on the server. Client components are the interactive
@@ -236,7 +263,7 @@ pnpm build
 # then upload everything inside out/ (FTP, SFTP, or hPanel File Manager)
 ```
 
-Roughly 3 MB across ~125 files, so any upload method works. There are no
+About 4 MB across ~160 files, so any upload method works. There are no
 environment variables, no database and no Node process on the server.
 
 Two settings in `next.config.ts` exist specifically for shared hosting:
@@ -253,7 +280,7 @@ Two settings in `next.config.ts` exist specifically for shared hosting:
 version-controlled rather than hand-edited on the server. It sets the styled 404
 (`404.html`), compression, long cache lifetimes for the fingerprinted
 `_next/static` assets, no-cache for HTML, and a few security headers. The HTTPS
-redirect at the bottom is commented out — enable it only after the SSL
+redirect at the bottom is commented out. Enable it only after the SSL
 certificate is issued, or it redirect-loops a domain with no working TLS.
 
 `.htaccess` does not apply to `pnpm preview`, which is a plain Node server. Cache
