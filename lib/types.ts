@@ -56,8 +56,10 @@ export interface Product {
   specs: Spec[];
   /** Placeholder illustration. Ignored when `image` is set. */
   art: ArtKey;
-  /** Real photo URL. Empty until media moves to Vercel Blob. */
+  /** Primary real photo URL. Empty until media moves to Vercel Blob. */
   image?: string;
+  /** Additional images to cycle through. Use this for hover states. */
+  images?: string[];
   /** One-line hook for the product page and meta description. */
   summary?: string;
   /** Body paragraphs for the product page. */
@@ -150,7 +152,7 @@ export interface Settings {
   brand: { name: string; sub: string };
   /** Default meta description for pages that do not set their own. */
   description: string;
-  contact: { address: string; phone: string; email: string };
+  contact: { address: string; phone: string; whatsapp: string; email: string };
   season: Season;
   nav: NavItem[];
   /** Rotates through the top bar. */

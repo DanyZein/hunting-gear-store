@@ -67,11 +67,11 @@ export default async function ProductPage({ params }: PageProps) {
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-16">
           <div className="overflow-hidden rounded-[3px] border border-line bg-spruce">
-            <div className="relative grid aspect-square place-items-center">
+            <div className="relative grid aspect-[3/4] place-items-center">
               <span className="topo-strong pointer-events-none absolute inset-0" aria-hidden="true" />
               {product.image ? (
                 // eslint-disable-next-line @next/next/no-img-element -- swapped for next/image when photos land in Blob
-                <img src={product.image} alt={product.name} className="relative size-full object-cover" />
+                <img src={product.image} alt={product.name} className="relative size-full object-contain" />
               ) : (
                 <ProductArt art={product.art} className="relative size-[62%] text-chrome-fg-2" />
               )}

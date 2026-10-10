@@ -26,9 +26,24 @@ export function CartDrawer({ settings }: { settings: Settings }) {
       ? settings.freightNote
       : `Add ${money(threshold - subtotal)} for free freight.`;
 
+  const handleCheckout = () => {
+    if (lines.length === 0) {
+      toast("Nothing in the cart yet.");
+      return;
+    }
+
+    const message = `Hello! I would like to place an order for the following items:\n\n${lines
+      .map((line) => `- ${line.name} (Qty: ${line.qty}) - ${money(line.price * line.qty)}`)
+      .join("\n")}\n\nSubtotal: ${money(subtotal)}`;
+
+    const url = `https://wa.me/${settings.contact.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank");
+  };
+
   return (
     <>
       <Scrim open={open} onClick={closeDrawer} />
+      {/* ... (rest of the component structure) */}
 
       <aside
         inert={!open}
@@ -133,13 +148,7 @@ export function CartDrawer({ settings }: { settings: Settings }) {
             type="button"
             variant="blaze"
             className="w-full"
-            onClick={() =>
-              toast(
-                lines.length === 0
-                  ? "Nothing in the cart yet."
-                  : "Checkout is not connected yet. No payment provider is wired up.",
-              )
-            }
+            onClick={handleCheckout}
           >
             Checkout
           </Button>

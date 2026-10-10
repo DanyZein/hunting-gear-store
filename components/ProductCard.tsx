@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-
 import { useStore } from "@/components/store/StoreProvider";
 import { Button } from "@/components/ui/Button";
 import { ProductArt } from "@/lib/art";
@@ -32,6 +31,11 @@ export function ProductCard({
   const badgeIsBlaze = product.badge === "Field pick" || product.badge === "New";
   const Heading = headingLevel;
 
+  // Use first extra image if available, otherwise use primary image
+  const displayImage = product.images && product.images.length > 0
+    ? product.images[0]
+    : product.image;
+
   return (
     <article className="group flex flex-col overflow-hidden rounded-[3px] border border-line bg-surface transition-[border-color,box-shadow,transform] duration-200 hover:-translate-y-0.5 hover:border-moss-2 hover:shadow-[0_1px_2px_rgba(12,16,12,0.05),0_12px_34px_-16px_rgba(12,16,12,0.28)]">
       <Link
@@ -42,14 +46,24 @@ export function ProductCard({
         <span className="topo-tile pointer-events-none absolute inset-0" aria-hidden="true" />
 
         {product.image ? (
-          // eslint-disable-next-line @next/next/no-img-element -- swapped for next/image when photos land in Blob
           <img
             src={product.image}
             alt={product.name}
-            className="relative z-1 size-full object-cover"
+            className={cn(
+              "relative z-1 size-full object-contain aspect-square transition-opacity duration-300",
+              product.images && product.images.length > 0 && "group-hover:opacity-0"
+            )}
           />
         ) : (
           <ProductArt art={product.art} className="relative z-1 size-[64%]" />
+        )}
+
+        {product.images && product.images.length > 0 && (
+          <img
+            src={product.images[0]}
+            alt={product.name}
+            className="absolute inset-0 z-0 size-full object-contain aspect-square opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+          />
         )}
 
         {product.badge && (

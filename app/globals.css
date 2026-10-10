@@ -42,9 +42,12 @@
   --color-chrome-fg: var(--chrome-fg);
   --color-chrome-fg-2: var(--chrome-fg-2);
 
-  --font-display: var(--font-barlow-condensed), "Arial Narrow", system-ui, sans-serif;
-  --font-body: var(--font-barlow), system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display:
+    var(--font-barlow-condensed), "Arial Narrow", system-ui, sans-serif;
+  --font-body:
+    var(--font-barlow), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:
+    var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 :root {

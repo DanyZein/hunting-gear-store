@@ -29,7 +29,8 @@ const CONTENT_DIR = path.join(process.cwd(), "content");
 const cache = new Map<string, unknown>();
 
 async function readJson<T>(file: string): Promise<T> {
-  const cached = cache.get(file);
+  const isDev = process.env.NODE_ENV === "development";
+  const cached = isDev ? undefined : cache.get(file);
   if (cached !== undefined) return cached as T;
 
   const full = path.join(CONTENT_DIR, file);

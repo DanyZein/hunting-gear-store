@@ -55,7 +55,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const [settings, taxonomy] = await Promise.all([getSettings(), getTaxonomy()]);
 
   return (
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`} suppressHydrationWarning={true}>
       <body>
         {/* Applies a saved theme choice before first paint. First child of
             <body> so it runs during parse, ahead of any visible content. */}

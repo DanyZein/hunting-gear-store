@@ -75,7 +75,7 @@
     "eyebrow": "Lighting",
     "headline": "Output you can dial",
     "body": "A 1400-lumen scan drains the cell in four hours. A 200-lumen walk-out runs all night. The Nightfall does both, so you set the beam for the timber you're standing in. Drag the dial.",
-    "productId": "nightfall-1400",
+    "productId": "ridgeline-jacket",
     "dial": {
       "minLumens": 200,
       "maxLumens": 1400,
