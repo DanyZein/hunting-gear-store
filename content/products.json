@@ -70,7 +70,7 @@
       "name": "Foothold 800g Boot",
       "category": "Footwear",
       "group": "footwear",
-      "price": 55,
+      "price": 45,
       "grounds": ["alpine", "prairie"],
       "art": "boot",
       "image": "/images/products/shoes.webp",

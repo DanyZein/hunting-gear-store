@@ -55,7 +55,7 @@ export function Footer({ settings }: { settings: Settings }) {
 
       <div className="mx-auto flex w-full max-w-[1300px] flex-wrap justify-between gap-3.5 border-t border-chrome-line px-[var(--gut)] py-4.5 font-mono text-[0.62rem] tracking-[0.1em] uppercase">
         <span>© {new Date().getFullYear()} {settings.brand.name} Field Supply</span>
-        <span>Checkout and accounts are not connected yet</span>
+        {/* <span>Checkout and accounts are not connected yet</span> */}
       </div>
     </footer>
   );

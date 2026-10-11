@@ -300,3 +300,15 @@ Hostinger and points at it over HTTP through `lib/sources/payload.ts`.
 
 `agentRules: false` in `next.config.ts` stops Next.js writing `AGENTS.md` and
 `CLAUDE.md` into the repo root on every dev run.
+
+## Context Resources
+
+For onboarding to or continuing work on this project:
+
+- **Project memories:** [`memory/MEMORY.md`](memory/MEMORY.md) — A structured index of project knowledge
+  - [`project-architecture.md`](memory/project-architecture.md) — Architecture overview and principles
+  - [`setup-and-deployment.md`](memory/setup-and-deployment.md) — Setup and deployment instructions
+  - [`development-patterns.md`](memory/development-patterns.md) — Development conventions and patterns
+  - [`git-history.md`](memory/git-history.md) — Recent commits and git cleanup history
+
+These files consolidate context across all project sessions and keep onboarding quick.
