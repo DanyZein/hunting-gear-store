@@ -37,3 +37,10 @@ yarn-error.log*
 # editor
 /.vscode/
 /.idea/
+
+#mine
+brand-og.md
+brand.md
+tokens.css
+/ninebark-instagram
+.gitignore
