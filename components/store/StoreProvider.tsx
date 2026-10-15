@@ -31,6 +31,7 @@ export interface CartLine {
   price: number;
   art: ArtKey;
   qty: number;
+  layer?: LayerKey;
 }
 
 type DrawerName = "cart" | "menu" | null;
@@ -120,7 +121,11 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     toastTimer.current = setTimeout(() => setToastMessage(null), 3400);
   }, []);
 
-  const append = useCallback((current: CartLine[], products: Product[]): CartLine[] => {
+  const append = useCallback((
+    current: CartLine[],
+    products: Product[],
+    options?: { discount?: number }
+  ): CartLine[] => {
     const next = [...current];
     for (const product of products) {
       const index = next.findIndex((line) => line.id === product.id);
@@ -134,6 +139,8 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           price: product.price,
           art: product.art,
           qty: 1,
+          layer: product.layer,
+          discount: options?.discount,
         });
       }
     }
@@ -150,9 +157,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   );
 
   const addMany = useCallback<StoreValue["addMany"]>(
-    (products, message) => {
+    (products, message, options?: { discount?: number }) => {
       if (products.length === 0) return;
-      setLines((current) => append(current, products));
+      setLines((current) => append(current, products, options));
       openDrawer("cart");
       toast(message);
     },
@@ -173,7 +180,11 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo<StoreValue>(() => {
     const count = lines.reduce((sum, line) => sum + line.qty, 0);
-    const subtotal = lines.reduce((sum, line) => sum + line.price * line.qty, 0);
+    const subtotal = lines.reduce((sum, line) => {
+      const lineDiscount = line.discount ?? 0;
+      const discountedPrice = Math.round(line.price * (1 - lineDiscount));
+      return sum + discountedPrice * line.qty;
+    }, 0);
     return {
       lines,
       count,

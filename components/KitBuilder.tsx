@@ -342,7 +342,13 @@ export function KitBuilder({
               disabled={!complete}
               className="w-full"
               onClick={() =>
-                addMany(chosen, `Kit added: ${chosen.length} pieces, ${money(price)} at kit pricing`)
+                addMany(
+                  chosen.map(product => ({
+                    ...product,
+                    price: Math.round(product.price * (1 - totalDiscount))
+                  })),
+                  `Kit added: ${chosen.length} pieces, ${money(price)} at kit pricing`
+                )
               }
             >
               Add kit to cart
