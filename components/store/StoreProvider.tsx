@@ -123,29 +123,29 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     toastTimer.current = setTimeout(() => setToastMessage(null), 3400);
   }, []);
 
-  const append = useCallback((
-    current: CartLine[],
-    products: Product[]
-  ): CartLine[] => {
-    const next = [...current];
-    for (const product of products) {
-      const index = next.findIndex((line) => line.id === product.id);
-      if (index >= 0) {
-        next[index] = { ...next[index], qty: next[index].qty + 1 };
-      } else {
-        next.push({
-          id: product.id,
-          name: product.name,
-          category: product.category,
-          price: product.price,
-          art: product.art,
-          qty: 1,
-          layer: product.layer,
-        });
+  const append = useCallback(
+    (current: CartLine[], products: Product[]): CartLine[] => {
+      const next = [...current];
+      for (const product of products) {
+        const index = next.findIndex((line) => line.id === product.id);
+        if (index >= 0) {
+          next[index] = { ...next[index], qty: next[index].qty + 1 };
+        } else {
+          next.push({
+            id: product.id,
+            name: product.name,
+            category: product.category,
+            price: product.price,
+            art: product.art,
+            qty: 1,
+            layer: product.layer,
+          });
+        }
       }
-    }
-    return next;
-  }, []);
+      return next;
+    },
+    [],
+  );
 
   const add = useCallback<StoreValue["add"]>(
     (product) => {
@@ -188,11 +188,17 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     const hasLighting = lines.some((line) => line.layer === "lighting");
     const hasGear = lines.some((line) => line.layer === "gear");
 
-    const baseKitComplete = hasOuter && hasMid && hasFootwear;
-    const extraDiscount = (hasLighting ? 0.02 : 0) + (hasGear ? 0.02 : 0);
-    const totalDiscount = baseKitComplete ? 0.10 + extraDiscount : 0;
+    const baseKitComplete = hasOuter && hasMid;
+    const extraDiscount =
+      (hasFootwear ? 0.02 : 0) +
+      (hasLighting ? 0.02 : 0) +
+      (hasGear ? 0.02 : 0);
+    const totalDiscount = baseKitComplete ? 0.4 + extraDiscount : 0;
 
-    const rawSubtotal = lines.reduce((sum, line) => sum + line.price * line.qty, 0);
+    const rawSubtotal = lines.reduce(
+      (sum, line) => sum + line.price * line.qty,
+      0,
+    );
 
     const subtotal = lines.reduce((sum, line) => {
       const discountedPrice = Math.round(line.price * (1 - totalDiscount));
@@ -230,7 +236,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
     toast,
   ]);
 
-  return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
+  return (
+    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
+  );
 }
 
 export function useStore(): StoreValue {

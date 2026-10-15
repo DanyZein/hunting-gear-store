@@ -33,15 +33,17 @@ export function KitBuilder({
   const optionsByLayer = useMemo(() => {
     const map = {} as Record<LayerKey, Product[]>;
     for (const layer of layers) {
-      map[layer.key] = products.filter((product) => product.layer === layer.key);
+      map[layer.key] = products.filter(
+        (product) => product.layer === layer.key,
+      );
     }
     return map;
   }, [products, layers]);
 
   // Base kit layers (required for discount)
-  const baseKitLayers = ["outer", "mid", "footwear"] as const;
+  const baseKitLayers = ["outer", "mid"] as const;
   // Addition layers (optional, add 2% each)
-  const additionLayers = ["lighting", "gear"] as const;
+  const additionLayers = ["footwear", "lighting", "gear"] as const;
 
   const [selection, setSelection] = useState<Partial<Record<LayerKey, string>>>(
     () => {
@@ -52,11 +54,13 @@ export function KitBuilder({
       }
       // Don't pre-select additions
       return initial;
-    }
+    },
   );
 
   const chosen = layers
-    .map((layer) => optionsByLayer[layer.key]?.find((p) => p.id === selection[layer.key]))
+    .map((layer) =>
+      optionsByLayer[layer.key]?.find((p) => p.id === selection[layer.key]),
+    )
     .filter((p): p is Product => Boolean(p));
 
   const sum = chosen.reduce((total, product) => total + product.price, 0);
@@ -68,9 +72,9 @@ export function KitBuilder({
   const hasLaser = chosen.some((p) => p.layer === "gear");
   const hasFlashlight = chosen.some((p) => p.layer === "lighting");
 
-  const baseKitComplete = hasOuter && hasMid && hasFootwear;
-  const extraDiscount = (hasLaser ? 0.02 : 0) + (hasFlashlight ? 0.02 : 0);
-  const totalDiscount = baseKitComplete ? 0.10 + extraDiscount : 0;
+  const baseKitComplete = hasOuter && hasMid;
+  const extraDiscount = (hasFootwear ? 0.02 : 0) + (hasLaser ? 0.02 : 0) + (hasFlashlight ? 0.02 : 0);
+  const totalDiscount = baseKitComplete ? 0.4 + extraDiscount : 0;
   const price = Math.round(sum * (1 - totalDiscount));
   const saving = sum - price;
 
@@ -110,7 +114,10 @@ export function KitBuilder({
             {/* Base Kit Section */}
             <div>
               <h3 className="font-display text-[1rem] font-bold tracking-[0.08em] uppercase text-fg-3 mb-3">
-                Base Kit <span className="font-mono text-[0.6rem] text-blaze ml-2">10% off</span>
+                Base Kit{" "}
+                <span className="font-mono text-[0.6rem] text-blaze ml-2">
+                  10% off
+                </span>
               </h3>
               <p className="text-[0.76rem] text-fg-3 mb-3">
                 Pick one from each row. All three required for kit pricing.
@@ -151,7 +158,10 @@ export function KitBuilder({
                           >
                             <ProductArt
                               art={product.art}
-                              className={cn("size-9 flex-none", selected ? "text-fg" : "text-fg-2")}
+                              className={cn(
+                                "size-9 flex-none",
+                                selected ? "text-fg" : "text-fg-2",
+                              )}
                             />
                             <span className="min-w-0 flex-1">
                               <span className="block font-display text-[0.9rem] font-semibold leading-[1.15] tracking-[0.03em] uppercase">
@@ -231,7 +241,10 @@ export function KitBuilder({
                             </span>
                             <ProductArt
                               art={product.art}
-                              className={cn("size-9 flex-none", selected ? "text-fg" : "text-fg-2")}
+                              className={cn(
+                                "size-9 flex-none",
+                                selected ? "text-fg" : "text-fg-2",
+                              )}
                             />
                             <span className="min-w-0 flex-1">
                               <span className="block font-display text-[0.9rem] font-semibold leading-[1.15] tracking-[0.03em] uppercase">
@@ -271,7 +284,12 @@ export function KitBuilder({
                     key={key}
                     className="flex justify-between gap-2.5 text-[0.82rem]"
                   >
-                    <span className={cn("min-w-0", product ? "text-chrome-fg-2" : "text-[#6b7364]")}>
+                    <span
+                      className={cn(
+                        "min-w-0",
+                        product ? "text-chrome-fg-2" : "text-[#6b7364]",
+                      )}
+                    >
                       {layer.name}: {product ? product.name : "not picked"}
                     </span>
                     <span className="flex-none text-right font-mono tabular-nums">
@@ -293,7 +311,9 @@ export function KitBuilder({
                   key={key}
                   className="flex justify-between gap-2.5 text-[0.82rem] text-[#6b7364]"
                 >
-                  <span>{layer.name}: {product.name}</span>
+                  <span>
+                    {layer.name}: {product.name}
+                  </span>
                   <span className="flex-none text-right font-mono tabular-nums">
                     {money(product.price)}
                   </span>
@@ -344,14 +364,16 @@ export function KitBuilder({
               onClick={() =>
                 addMany(
                   chosen,
-                  `Kit added: ${chosen.length} pieces, ${money(price)} at kit pricing`
+                  `Kit added: ${chosen.length} pieces, ${money(price)} at kit pricing`,
                 )
               }
             >
               Add kit to cart
             </Button>
 
-            <p className="text-center text-[0.7rem] text-chrome-fg-2">{content.note}</p>
+            <p className="text-center text-[0.7rem] text-chrome-fg-2">
+              {content.note}
+            </p>
           </div>
         </div>
       </div>

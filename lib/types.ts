@@ -26,7 +26,8 @@ export type ArtKey =
   | "rubberBoot"
   | "pack"
   | "headlamp"
-  | "spotlight";
+  | "spotlight"
+  | "laser";
 
 /** One cell of the mono spec strip printed across the bottom of a card. */
 export interface Spec {

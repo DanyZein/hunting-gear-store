@@ -28,7 +28,7 @@ export default async function ShopPage() {
           meets a level-2 heading before the page's level-1. "Where are you
           hunting?" is the first thing this page says, so it is the heading that
           names it. The grid below is a subheading of that. */}
-      <GroundPicker content={pages.shop.grounds} products={products} headingLevel="h1" />
+      {/* <GroundPicker content={pages.shop.grounds} products={products} headingLevel="h1" /> */}
       <Catalog products={products} content={pages.shop.catalog} />
     </>
   );

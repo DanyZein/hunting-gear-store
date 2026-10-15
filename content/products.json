@@ -1,41 +1,13 @@
 {
   "products": [
     {
-      "id": "mid-layer-fleece",
-      "name": "Timberline Fleece Pant",
-      "category": "Mid Layer",
-      "group": "apparel",
-      "layer": "mid",
-      "price": 40,
-      "grounds": ["alpine", "timber", "prairie", "marsh"],
-      "art": "fleece",
-      "image": "/images/products/pants.webp",
-      "images": ["/images/products/pants.webp"],
-      "specs": [
-        { "k": "Temp", "v": "10°F" },
-        { "k": "Weight", "v": "1 lb 2 oz" },
-        { "k": "Fabric", "v": "200 gsm grid fleece" }
-      ],
-      "summary": "Grid fleece pants that trap heat without the bulk. Full side zips for boot-on layering.",
-      "description": [
-        "A mid-layer pant built for static sits in cold timber. The grid fleece structure traps warm air in its channels while moving moisture toward the outer layer.",
-        "Full-length two-way side zips let you pull them on over boots at the truck. Articulated knees and a gusseted crotch keep the fit clean on a long walk in."
-      ],
-      "features": [
-        "200 gsm Polartec® Power Grid™",
-        "Full-length two-way side zips",
-        "Articulated knee pattern",
-        "Low-profile elastic waist with drawcord"
-      ]
-    },
-    {
       "id": "outer-jacket",
-      "name": "Ridgeline Softshell Jacket",
-      "category": "Outerwear",
+      "name": "Ridgeline Camo Jacket",
+      "category": "Jackets & Outerwear",
       "group": "apparel",
       "layer": "outer",
       "price": 40,
-      "grounds": ["alpine", "timber", "prairie", "marsh"],
+      "grounds": ["Windproof", "Camouflage", "Nylon shell"],
       "badge": "Best seller",
       "art": "jacket",
       "image": "/images/products/jacket.webp",
@@ -45,30 +17,92 @@
         "/images/products/jacket-detail.webp"
       ],
       "specs": [
-        { "k": "Temp", "v": "0°F" },
-        { "k": "Water", "v": "20K mm" },
-        { "k": "Weight", "v": "2 lb 4 oz" }
+        {
+          "k": "Shell",
+          "v": "100% nylon"
+        },
+        {
+          "k": "Backing",
+          "v": "100% polyester"
+        },
+        {
+          "k": "Laminate",
+          "v": "PU"
+        },
+        {
+          "k": "Lining",
+          "v": "Polyester"
+        }
       ],
-      "summary": "The jacket the whole line is built around. Wind-blocking softshell with a hood that clears a ball cap.",
+      "summary": "A windproof camouflage jacket with a durable nylon shell, built for hunting trips and outdoor adventures.",
       "description": [
-        "This is the third pattern. The first two failed the same way: the shoulder seam sat where a pack strap rides, and it pulled open by the end of a season. The seam now sits two inches forward with a heavier bar tack at the strap point, and the hood is cut to clear a cap without craning your neck.",
-        "The face fabric is a four-way stretch softshell with a 20K/20K membrane, so it sheds a wet snow and still breathes on the climb. Pit zips run long enough to dump heat on a steep push without taking the pack off."
+        "Stay protected from the wind with the Ridgeline Camo Jacket. Designed for outdoor use, it features a durable 100% nylon shell, polyester backing, and a PU laminate layer in a practical camouflage pattern.",
+        "Ideal for hunting trips, woodland walks, and everyday outdoor wear, this jacket works well as an outer layer over suitable base and insulating layers. For best results, wash on a cold, gentle cycle and line dry. Avoid bleach and fabric softener."
       ],
       "features": [
-        "Helmet-compatible hood with a wire brim",
-        "Two-way pit zips, 14 in",
-        "Chest pocket sized for a rangefinder",
-        "DWR finish, PFC-free"
+        "Windproof construction",
+        "Camouflage pattern for outdoor activities",
+        "100% nylon outer shell",
+        "100% polyester backing and lining",
+        "PU laminate layer",
+        "Suitable for layering in changing conditions",
+        "Machine wash cold on a gentle cycle",
+        "Line dry; do not use bleach or fabric softener"
+      ]
+    },
+    {
+      "id": "mid-layer-fleece",
+      "name": "Timberline Camo Hunting Pants",
+      "category": "Pants & Bottoms",
+      "group": "apparel",
+      "layer": "mid",
+      "price": 30,
+      "grounds": ["Windproof", "Camouflage", "Nylon shell"],
+      "art": "bib",
+      "image": "/images/products/pants.webp",
+      "images": ["/images/products/pants.webp"],
+      "specs": [
+        {
+          "k": "Shell",
+          "v": "100% nylon"
+        },
+        {
+          "k": "Backing",
+          "v": "100% polyester"
+        },
+        {
+          "k": "Laminate",
+          "v": "PU"
+        },
+        {
+          "k": "Lining",
+          "v": "Polyester"
+        }
+      ],
+      "summary": "Windproof camouflage hunting pants designed for comfortable outdoor wear in breezy conditions.",
+      "description": [
+        "Take on the outdoors with the Timberline Camo Hunting Pants. Their camouflage design and layered fabric construction make them a practical choice for hunting trips, woodland trails, and other outdoor activities.",
+        "Made with a 100% nylon shell, polyester backing, a PU laminate layer, and a polyester lining, these pants help block the wind while keeping your outdoor clothing setup practical. Pair them with suitable base layers according to the weather and your activity."
+      ],
+      "features": [
+        "Windproof construction",
+        "Camouflage design for outdoor activities",
+        "100% nylon outer shell",
+        "100% polyester backing and lining",
+        "PU laminate layer",
+        "Suitable for hunting and outdoor wear",
+        "Machine wash cold on a gentle cycle",
+        "Line dry; do not use bleach or fabric softener"
       ]
     },
     {
       "id": "foothold-boot",
-      "name": "Foothold 800g Boot",
+      "name": "A533 Camo Hunting Boots",
       "category": "Footwear",
       "group": "footwear",
       "layer": "footwear",
-      "price": 45,
-      "grounds": ["alpine", "prairie"],
+      "price": 35,
+      "grounds": ["600g agile", "15cm shaft"],
       "art": "boot",
       "image": "/images/products/shoes.webp",
       "images": [
@@ -76,22 +110,13 @@
         "/images/products/boot-closeup.webp",
         "/images/products/boot-detail.webp"
       ],
-      "specs": [
-        { "k": "Insul", "v": "800 g" },
-        { "k": "Temp", "v": "-40°F" },
-        { "k": "Height", "v": "10 in" }
-      ],
-      "summary": "An 800-gram boot that still lets you feel the ground on a stalk.",
+      "specs": [],
+      "summary": "Camouflage hunting boots with an outdoor-ready design, suited to complete your hunting gear setup.",
       "description": [
-        "800 grams of Thinsulate through the shaft with a 400-gram footbed, which is the split that keeps your toes warm on a four-hour sit without turning the boot into a brick on the walk in.",
-        "The outsole is a sticky rubber compound with a heel brake for downhill stalks. Waterproof membrane is bootie-constructed, so there is no seam for water to find."
+        "Complete your outdoor gear with the A533 Camo Hunting Boots. Their camouflage design pairs naturally with hunting clothing and outdoor equipment, making them an option for hunting trips and general outdoor use.",
+        "The model is identified as A533 and is made in China. Specific details about waterproofing, insulation, materials, and temperature performance have not been confirmed, so consider the terrain and weather when choosing your footwear."
       ],
-      "features": [
-        "800 g shaft / 400 g footbed insulation",
-        "Waterproof bootie construction",
-        "Aggressive heel brake",
-        "Recraftable sole"
-      ]
+      "features": ["A533 model", "Camouflage design", "Made in China"]
     },
     {
       "id": "laser-kit",
@@ -99,31 +124,44 @@
       "category": "Gear",
       "group": "apparel",
       "layer": "gear",
-      "price": 100,
+      "price": 45,
       "grounds": ["alpine", "timber", "prairie", "marsh"],
-      "art": "spotlight",
+      "art": "laser",
       "image": "/images/products/base-crew.webp",
       "images": ["/images/products/base-crew.webp"],
       "specs": [],
-      "summary": "Laser box with glasses for hunting, a laser, and a lamp.",
-      "description": ["Complete hunting laser kit."],
-      "features": ["Laser box", "Hunting glasses", "Lamp"]
+      "summary": "Product details are being verified before this item becomes available.",
+      "description": [
+        "The Laser Kit is listed in our gear catalog, but its output specifications and safety classification still need to be confirmed.",
+        "The product should remain unavailable for purchase until its safety documentation and applicable sales requirements have been verified."
+      ],
+      "features": []
     },
     {
       "id": "koba-flashlight",
-      "name": "Koba Flashlight",
+      "name": "COBA CB-G400Y Zoom Flashlight",
       "category": "Lighting",
       "group": "lighting",
       "layer": "lighting",
-      "price": 50,
+      "price": 35,
       "grounds": ["alpine", "timber", "prairie", "marsh"],
       "art": "headlamp",
       "image": "/images/products/base-crew.webp",
       "images": ["/images/products/base-crew.webp"],
       "specs": [],
-      "summary": "Koba CBG400Y aluminum-alloy strong-light flashlight, 300 watt, 3000 m.",
-      "description": ["High power flashlight with multiple batteries."],
-      "features": ["3000m range", "181mAh battery", "Four type-c batteries"]
+      "summary": "A rechargeable zoom flashlight with adjustable beam focus and USB-C charging for outdoor use and everyday tasks.",
+      "description": [
+        "The COBA CB-G400Y Zoom Flashlight is designed for outdoor adventures, camping, and everyday illumination. Its adjustable zoom lets you switch between a wider beam for nearby surroundings and a more focused beam for looking farther ahead.",
+        "The product information lists USB-C charging and a rechargeable battery setup. Brightness, beam distance, battery capacity, and runtime have not been independently verified, so actual performance may vary. Follow the supplied charging and usage instructions."
+      ],
+      "features": [
+        "Adjustable zoom for wide or focused illumination",
+        "USB-C charging, according to product information",
+        "Rechargeable battery setup",
+        "Handheld design for outdoor and everyday use",
+        "Advertised beam distance: 3,000 m, not independently verified",
+        "Advertised LED power: 300 W, not independently verified"
+      ]
     }
   ]
 }

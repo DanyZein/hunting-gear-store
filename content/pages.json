@@ -78,10 +78,10 @@
     "productId": "outer-jacket",
     "dial": {
       "minLumens": 200,
-      "maxLumens": 1400,
-      "reachAtMinYd": 110,
-      "reachAtMaxYd": 210,
-      "runtimeAtMinHr": 36,
+      "maxLumens": 3000,
+      "reachAtMinYd": 10,
+      "reachAtMaxYd": 1000,
+      "runtimeAtMinHr": 15,
       "runtimeAtMaxHr": 4
     }
   },

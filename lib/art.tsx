@@ -171,6 +171,21 @@ const spotlight = (
   </>
 );
 
+const laser = (
+  <>
+    {/* Laser Body - Long cylinder */}
+    <path d="M60 110 L160 110 L160 130 L60 130 Z" />
+    {/* Laser Head - Thicker */}
+    <path d="M160 100 L200 100 L200 140 L160 140 Z" />
+    {/* Laser Beam - Shooting out */}
+    <path d="M200 120 L240 120" />
+    {/* Lens detail */}
+    <circle cx="200" cy="120" r="10" />
+    {/* Button */}
+    <path d="M100 110 L100 100 L120 100 L120 110 Z" />
+  </>
+);
+
 export const ART: Record<ArtKey, ReactNode> = {
   jacket,
   bib,
@@ -184,6 +199,7 @@ export const ART: Record<ArtKey, ReactNode> = {
   pack,
   headlamp,
   spotlight,
+  laser,
 };
 
 export function ProductArt({

@@ -39,10 +39,10 @@
     { "id": "lighting", "name": "Lighting" }
   ],
   "layers": [
-    { "key": "outer", "name": "Outer", "note": "Blocks wind, water and briars" },
-    { "key": "mid", "name": "Mid", "note": "Holds heat, the insulating layer" },
-    { "key": "footwear", "name": "Footwear", "note": "For the walk in" },
-    { "key": "lighting", "name": "Lighting", "note": "For the timber" },
-    { "key": "gear", "name": "Gear", "note": "Laser and tools" }
+    { "key": "outer", "name": "Upper" },
+    { "key": "mid", "name": "Lower" },
+    { "key": "footwear", "name": "Footwear"},
+    { "key": "lighting", "name": "Lighting"},
+    { "key": "gear", "name": "Laser" }
   ]
 }

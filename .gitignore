@@ -45,3 +45,5 @@ tokens.css
 /ninebark-instagram
 .gitignore
 audit.html
+app/lighting-demo
+components/AutoLightingRig.tsx

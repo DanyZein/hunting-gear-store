@@ -82,7 +82,7 @@ export function LightingRig({
             preserveAspectRatio="xMinYMid slice"
             className="size-full"
             role="img"
-            aria-label={`A headlamp beam reaching across a treeline at ${lumens} lumens, ${reach} yards, ${runtime.toFixed(1)} hours of runtime.`}
+            aria-label={`A headlamp beam reaching across a treeline at ${lumens} lumens, ${reach} meters, ${runtime.toFixed(1)} hours of runtime.`}
           >
             <defs>
               <linearGradient id="beam-outer" x1="0" y1="0" x2="1" y2="0">
@@ -178,7 +178,7 @@ export function LightingRig({
 
           <div className="grid grid-cols-1 gap-px border border-chrome-line bg-chrome-line sm:grid-cols-3">
             <Readout label="Output" value={lumens} unit="lm" />
-            <Readout label="Beam reach" value={reach} unit="yd" />
+            <Readout label="Beam reach" value={reach} unit="m" />
             <Readout
               label="Runtime"
               value={runtime < 10 ? runtime.toFixed(1) : Math.round(runtime)}
