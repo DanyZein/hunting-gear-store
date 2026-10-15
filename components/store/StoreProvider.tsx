@@ -10,7 +10,7 @@ import {
   useState,
 } from "react";
 
-import type { ArtKey, Product } from "@/lib/types";
+import type { ArtKey, Product, LayerKey } from "@/lib/types";
 
 /**
  * Cart, toast and drawer state.
@@ -40,6 +40,8 @@ interface StoreValue {
   lines: CartLine[];
   count: number;
   subtotal: number;
+  rawSubtotal: number;
+  saving: number;
   add: (product: Product) => void;
   /** Adds several lines at once and confirms once, so a kit is one action. */
   addMany: (products: Product[], message: string) => void;
@@ -123,8 +125,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
   const append = useCallback((
     current: CartLine[],
-    products: Product[],
-    options?: { discount?: number }
+    products: Product[]
   ): CartLine[] => {
     const next = [...current];
     for (const product of products) {
@@ -140,7 +141,6 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
           art: product.art,
           qty: 1,
           layer: product.layer,
-          discount: options?.discount,
         });
       }
     }
@@ -157,9 +157,9 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   );
 
   const addMany = useCallback<StoreValue["addMany"]>(
-    (products, message, options?: { discount?: number }) => {
+    (products, message) => {
       if (products.length === 0) return;
-      setLines((current) => append(current, products, options));
+      setLines((current) => append(current, products));
       openDrawer("cart");
       toast(message);
     },
@@ -180,15 +180,33 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo<StoreValue>(() => {
     const count = lines.reduce((sum, line) => sum + line.qty, 0);
+
+    // Check what layers are present in the cart
+    const hasOuter = lines.some((line) => line.layer === "outer");
+    const hasMid = lines.some((line) => line.layer === "mid");
+    const hasFootwear = lines.some((line) => line.layer === "footwear");
+    const hasLighting = lines.some((line) => line.layer === "lighting");
+    const hasGear = lines.some((line) => line.layer === "gear");
+
+    const baseKitComplete = hasOuter && hasMid && hasFootwear;
+    const extraDiscount = (hasLighting ? 0.02 : 0) + (hasGear ? 0.02 : 0);
+    const totalDiscount = baseKitComplete ? 0.10 + extraDiscount : 0;
+
+    const rawSubtotal = lines.reduce((sum, line) => sum + line.price * line.qty, 0);
+
     const subtotal = lines.reduce((sum, line) => {
-      const lineDiscount = line.discount ?? 0;
-      const discountedPrice = Math.round(line.price * (1 - lineDiscount));
+      const discountedPrice = Math.round(line.price * (1 - totalDiscount));
       return sum + discountedPrice * line.qty;
     }, 0);
+
+    const saving = rawSubtotal - subtotal;
+
     return {
       lines,
       count,
       subtotal,
+      rawSubtotal,
+      saving,
       add,
       addMany,
       setQty,

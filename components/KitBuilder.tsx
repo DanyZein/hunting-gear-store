@@ -177,7 +177,7 @@ export function KitBuilder({
             <div className="border-t border-line pt-4">
               <h3 className="font-display text-[1rem] font-bold tracking-[0.08em] uppercase text-fg-3 mb-3 flex items-center gap-2">
                 Additions
-                <span className="font-mono text-[0.56rem] text-moss-2 bg-moss/10 px-1.5 py-0.5 rounded-[2px]">
+                <span className="font-mono text-[0.56rem] text-blaze px-1.5 py-0.5 rounded-xs">
                   +2% each
                 </span>
               </h3>
@@ -291,7 +291,7 @@ export function KitBuilder({
               return (
                 <div
                   key={key}
-                  className="flex justify-between gap-2.5 text-[0.82rem] text-moss"
+                  className="flex justify-between gap-2.5 text-[0.82rem] text-[#6b7364]"
                 >
                   <span>{layer.name}: {product.name}</span>
                   <span className="flex-none text-right font-mono tabular-nums">
@@ -343,10 +343,7 @@ export function KitBuilder({
               className="w-full"
               onClick={() =>
                 addMany(
-                  chosen.map(product => ({
-                    ...product,
-                    price: Math.round(product.price * (1 - totalDiscount))
-                  })),
+                  chosen,
                   `Kit added: ${chosen.length} pieces, ${money(price)} at kit pricing`
                 )
               }

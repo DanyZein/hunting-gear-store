@@ -17,14 +17,8 @@ import type { Settings } from "@/lib/types";
  * pretending to take a payment.
  */
 export function CartDrawer({ settings }: { settings: Settings }) {
-  const { lines, subtotal, drawer, closeDrawer, setQty, remove, toast } = useStore();
+  const { lines, subtotal, rawSubtotal, saving, drawer, closeDrawer, setQty, remove, toast } = useStore();
   const open = drawer === "cart";
-
-  const threshold = settings.freeFreightThreshold;
-  const freight =
-    subtotal >= threshold || subtotal === 0
-      ? settings.freightNote
-      : `Add ${money(threshold - subtotal)} for free freight.`;
 
   const handleCheckout = () => {
     if (lines.length === 0) {
@@ -34,7 +28,9 @@ export function CartDrawer({ settings }: { settings: Settings }) {
 
     const message = `Hello! I would like to place an order for the following items:\n\n${lines
       .map((line) => `- ${line.name} (Qty: ${line.qty}) - ${money(line.price * line.qty)}`)
-      .join("\n")}\n\nSubtotal: ${money(subtotal)}`;
+      .join("\n")}\n\n${saving > 0
+        ? `Subtotal: ${money(rawSubtotal)}\nKit discount: -${money(saving)}\nTotal: ${money(subtotal)}\nBuying as a kit saves ${money(saving)}`
+        : `Subtotal: ${money(subtotal)}`}`;
 
     const url = `https://wa.me/${settings.contact.whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
@@ -135,15 +131,50 @@ export function CartDrawer({ settings }: { settings: Settings }) {
         </div>
 
         <div className="pad-safe-b flex-none border-t border-line bg-surface px-[var(--gut)] py-4.5">
-          <div className="mb-1.5 flex items-baseline justify-between">
-            <span className="font-mono text-[0.66rem] tracking-[0.14em] uppercase text-fg-3">
-              Subtotal
-            </span>
-            <b className="font-display text-[1.9rem] font-bold leading-none tabular-nums">
-              {money(subtotal)}
-            </b>
-          </div>
-          <p className="mb-3.5 font-mono text-[0.62rem] tracking-[0.06em] text-fg-3">{freight}</p>
+          {saving > 0 ? (
+            <>
+              <div className="mb-1.5 flex items-baseline justify-between text-fg-2">
+                <span className="font-mono text-[0.66rem] tracking-[0.14em] uppercase text-fg-3">
+                  Subtotal
+                </span>
+                <span className="font-mono text-[0.84rem] tabular-nums line-through">
+                  {money(rawSubtotal)}
+                </span>
+              </div>
+              <div className="mb-1.5 flex items-baseline justify-between text-blaze">
+                <span className="font-mono text-[0.66rem] tracking-[0.14em] uppercase">
+                  Kit discount
+                </span>
+                <span className="font-mono text-[0.84rem] tabular-nums">
+                  −{money(saving)}
+                </span>
+              </div>
+              <div className="mb-3.5 flex items-baseline justify-between">
+                <span className="font-mono text-[0.66rem] tracking-[0.14em] uppercase text-fg-3">
+                  Total
+                </span>
+                <b className="font-display text-[1.9rem] font-bold leading-none tabular-nums">
+                  {money(subtotal)}
+                </b>
+              </div>
+              <div className="mb-3.5 rounded-r-[2px] border-l-2 border-blaze bg-[rgba(239,106,36,0.12)] px-3 py-2 font-mono text-[0.66rem] tracking-[0.06em] flex justify-between">
+                <span>Buying as a kit saves</span>
+                <b className="font-medium text-blaze">{money(saving)}</b>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="mb-1.5 flex items-baseline justify-between">
+                <span className="font-mono text-[0.66rem] tracking-[0.14em] uppercase text-fg-3">
+                  Subtotal
+                </span>
+                <b className="font-display text-[1.9rem] font-bold leading-none tabular-nums">
+                  {money(subtotal)}
+                </b>
+              </div>
+            </>
+          )}
+          {/* <p className="mb-3.5 font-mono text-[0.62rem] tracking-[0.06em] text-fg-3">{freight}</p> */}
           <Button
             type="button"
             variant="blaze"
