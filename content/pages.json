@@ -65,9 +65,9 @@
   "layering": {
     "system": {
       "eyebrow": "The layering system",
-      "headline": "Three layers, one kit",
-      "body": "Nobody buys a jacket on its own. Pick one piece from each layer and we price the three together.",
-      "note": "Ships as three pieces, one box. Sizes set at checkout."
+      "headline": "Five layers, one kit",
+      "body": "Nobody buys a jacket on its own. Pick outer, mid, and footwear for the base kit at 10% off. Add lighting or gear and each adds 2% more discount.",
+      "note": "Ships as one box. Sizes set at checkout."
     }
   },
 
@@ -75,7 +75,7 @@
     "eyebrow": "Lighting",
     "headline": "Output you can dial",
     "body": "A 1400-lumen scan drains the cell in four hours. A 200-lumen walk-out runs all night. The Nightfall does both, so you set the beam for the timber you're standing in. Drag the dial.",
-    "productId": "ridgeline-jacket",
+    "productId": "outer-jacket",
     "dial": {
       "minLumens": 200,
       "maxLumens": 1400,

@@ -1,13 +1,41 @@
 {
   "products": [
     {
-      "id": "ridgeline-jacket",
+      "id": "mid-layer-fleece",
+      "name": "Timberline Fleece Pant",
+      "category": "Mid Layer",
+      "group": "apparel",
+      "layer": "mid",
+      "price": 40,
+      "grounds": ["alpine", "timber", "prairie", "marsh"],
+      "art": "fleece",
+      "image": "/images/products/pants.webp",
+      "images": ["/images/products/pants.webp"],
+      "specs": [
+        { "k": "Temp", "v": "10°F" },
+        { "k": "Weight", "v": "1 lb 2 oz" },
+        { "k": "Fabric", "v": "200 gsm grid fleece" }
+      ],
+      "summary": "Grid fleece pants that trap heat without the bulk. Full side zips for boot-on layering.",
+      "description": [
+        "A mid-layer pant built for static sits in cold timber. The grid fleece structure traps warm air in its channels while moving moisture toward the outer layer.",
+        "Full-length two-way side zips let you pull them on over boots at the truck. Articulated knees and a gusseted crotch keep the fit clean on a long walk in."
+      ],
+      "features": [
+        "200 gsm Polartec® Power Grid™",
+        "Full-length two-way side zips",
+        "Articulated knee pattern",
+        "Low-profile elastic waist with drawcord"
+      ]
+    },
+    {
+      "id": "outer-jacket",
       "name": "Ridgeline Softshell Jacket",
       "category": "Outerwear",
       "group": "apparel",
       "layer": "outer",
-      "price": 35,
-      "grounds": ["alpine", "timber"],
+      "price": 40,
+      "grounds": ["alpine", "timber", "prairie", "marsh"],
       "badge": "Best seller",
       "art": "jacket",
       "image": "/images/products/jacket.webp",
@@ -34,42 +62,11 @@
       ]
     },
     {
-      "id": "coldfront-bib",
-      "name": "Coldfront Insulated Bib",
-      "category": "Outerwear",
-      "group": "apparel",
-      "layer": "outer",
-      "price": 30,
-      "grounds": ["prairie", "timber"],
-      "art": "bib",
-      "image": "/images/products/pants.webp",
-      "images": [
-        "/images/products/pants.webp",
-        "/images/products/bib-closeup.webp",
-        "/images/products/bib-detail.webp"
-      ],
-      "specs": [
-        { "k": "Temp", "v": "-20°F" },
-        { "k": "Fill", "v": "800 g" },
-        { "k": "Weight", "v": "3 lb 1 oz" }
-      ],
-      "summary": "Full-length side zips so you can layer up at the truck without taking your boots off.",
-      "description": [
-        "Built for the stand. 800 grams of synthetic fill through the body and legs, with a windproof shell that does not rustle when you shift your weight.",
-        "The full-length side zips are the point. You put the bib on over your boots at the truck, then vent them on the walk in and close them once you are sitting."
-      ],
-      "features": [
-        "Full-length two-way side zips",
-        "Reinforced knees and seat",
-        "Zip-off leg cuffs",
-        "Two chest pockets, two handwarmers"
-      ]
-    },
-    {
       "id": "foothold-boot",
       "name": "Foothold 800g Boot",
       "category": "Footwear",
       "group": "footwear",
+      "layer": "footwear",
       "price": 45,
       "grounds": ["alpine", "prairie"],
       "art": "boot",
@@ -95,6 +92,38 @@
         "Aggressive heel brake",
         "Recraftable sole"
       ]
+    },
+    {
+      "id": "laser-kit",
+      "name": "Laser Kit",
+      "category": "Gear",
+      "group": "apparel",
+      "layer": "gear",
+      "price": 100,
+      "grounds": ["alpine", "timber", "prairie", "marsh"],
+      "art": "spotlight",
+      "image": "/images/products/base-crew.webp",
+      "images": ["/images/products/base-crew.webp"],
+      "specs": [],
+      "summary": "Laser box with glasses for hunting, a laser, and a lamp.",
+      "description": ["Complete hunting laser kit."],
+      "features": ["Laser box", "Hunting glasses", "Lamp"]
+    },
+    {
+      "id": "koba-flashlight",
+      "name": "Koba Flashlight",
+      "category": "Lighting",
+      "group": "lighting",
+      "layer": "lighting",
+      "price": 50,
+      "grounds": ["alpine", "timber", "prairie", "marsh"],
+      "art": "headlamp",
+      "image": "/images/products/base-crew.webp",
+      "images": ["/images/products/base-crew.webp"],
+      "specs": [],
+      "summary": "Koba CBG400Y aluminum-alloy strong-light flashlight, 300 watt, 3000 m.",
+      "description": ["High power flashlight with multiple batteries."],
+      "features": ["3000m range", "181mAh battery", "Four type-c batteries"]
     }
   ]
 }

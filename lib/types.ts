@@ -11,7 +11,7 @@ export type GroundId = "alpine" | "timber" | "prairie" | "marsh";
 
 export type GroupId = "apparel" | "footwear" | "packs" | "lighting";
 
-export type LayerKey = "base" | "mid" | "outer";
+export type LayerKey = "mid" | "outer" | "footwear" | "lighting" | "gear";
 
 /** Keys into the placeholder illustration set in `lib/art.tsx`. */
 export type ArtKey =

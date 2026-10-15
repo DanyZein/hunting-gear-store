@@ -39,8 +39,10 @@
     { "id": "lighting", "name": "Lighting" }
   ],
   "layers": [
-    { "key": "base", "name": "Base", "note": "Wicks, worn against skin" },
+    { "key": "outer", "name": "Outer", "note": "Blocks wind, water and briars" },
     { "key": "mid", "name": "Mid", "note": "Holds heat, the insulating layer" },
-    { "key": "outer", "name": "Outer", "note": "Blocks wind, water and briars" }
+    { "key": "footwear", "name": "Footwear", "note": "For the walk in" },
+    { "key": "lighting", "name": "Lighting", "note": "For the timber" },
+    { "key": "gear", "name": "Gear", "note": "Laser and tools" }
   ]
 }
